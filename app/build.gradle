@@ -1,9 +1,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:3.2.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -14,7 +15,7 @@ repositories {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         applicationId "com.homeraria.hencodeuicourse.app"
@@ -22,10 +23,6 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
-        jackOptions {
-            enabled true
-        }
     }
 
     compileOptions {
@@ -42,7 +39,7 @@ android {
 
 dependencies {
     //支持tabLayout
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

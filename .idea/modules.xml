@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HenCodeUICourse.iml" filepath="$PROJECT_DIR$/HenCodeUICourse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidDemo.iml" filepath="$PROJECT_DIR$/androidDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
