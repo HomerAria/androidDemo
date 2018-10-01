@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">HenCode UI Course</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_a1">a1Activity</string>
+    <string name="title_activity_a2">a2Activity</string>
+    <string name="title_activity_a3">a3Activity</string>
+    <string name="title_activity_a4">a4Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_a7">a7Activity</string>
+    <string name="title_activity_a8">a8Activity</string>
+</resources>
