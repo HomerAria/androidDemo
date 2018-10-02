@@ -34,8 +34,8 @@ public class ArgbEvaluatorRelativeLayout extends RelativeLayout
     }
 
     @Override
-    protected void onAttachedToWindow()
-    {
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         mButton = findViewById(R.id.control_button);
         mCircleView = findViewById(R.id.evaluator_view);
 
