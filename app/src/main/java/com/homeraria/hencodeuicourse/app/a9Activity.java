@@ -23,6 +23,7 @@ public class a9Activity extends FragmentActivity
     {
         mPageModelList.add(new a9Activity.PageModel("饼图", R.layout.echars_pai));
         mPageModelList.add(new a9Activity.PageModel("柱状图", R.layout.echars_bar));
+        mPageModelList.add(new a9Activity.PageModel("蜡烛图", R.layout.echars_candle));
 
     }
 

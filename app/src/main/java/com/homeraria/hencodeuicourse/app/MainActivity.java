@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         titleList.add("1-7 属性动画进阶");
         titleList.add("2-1~2-3 布局");
         titleList.add("3-1 echarts使用");
+        titleList.add("3-2 echarts使用");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
