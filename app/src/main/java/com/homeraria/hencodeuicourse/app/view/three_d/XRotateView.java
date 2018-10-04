@@ -52,7 +52,7 @@ public class XRotateView extends RelativeLayout {
         mCenterX = getWidth() / 2;
         mCenterY = getHeight() / 2;
 
-        //1.绘制在中央-->不移动canvas, rotateX符合左手系
+        //1.绘制在中央-->不移动canvas, rotateX--> y轴倒向z轴转动方向为正
 //        canvas.save();
 //        camera.save();
 //        camera.rotateX(10);
@@ -61,7 +61,7 @@ public class XRotateView extends RelativeLayout {
 //        camera.restore();
 //        canvas.restore();
 
-        //2.绘制在中央-->不移动canvas, rotateY不符合左手系
+        //2.绘制在中央-->不移动canvas, rotateY--> x轴倒向z轴转动方向为正
 //        canvas.save();
 //        camera.save();
 //        camera.rotateY(10);
@@ -70,7 +70,8 @@ public class XRotateView extends RelativeLayout {
 //        camera.restore();
 //        canvas.restore();
 
-        //3.绘制在中央-->不移动canvas, rotateZ不符合左手系
+        //3.绘制在中央-->不移动canvas, rotateZ--> x轴倒向y轴转动方向为证
+        //从1/2/3可知：三个轴的优先级为X>Y>Z,在任意一轴转动过程中，都可以看做屏幕（2d）扫过另外两个轴，从大优先级向小优先级扫则为正
 //        canvas.save();
 //        camera.save();
 //        camera.rotateZ(10);
@@ -115,7 +116,7 @@ public class XRotateView extends RelativeLayout {
 //        camera.save();
 //        canvas.translate(mCenterX , mCenterY );
 //        camera.rotateX(10);
-//        canvas.translate(-200, 0);
+//        canvas.translate(0, -200);   //等效于camera.translate(0, 200, 0);
 //        camera.applyToCanvas(canvas);
 //        canvas.drawBitmap(bitmap, - mBitmapW / 2, - mBitmapH / 2, paint);
 //        canvas.restore();
