@@ -46,6 +46,16 @@
             android:name=".a9Activity"
             android:label="@string/title_activity_a9">
         </activity>
+
+        <activity
+            android:name=".a10Activity"
+            android:label="@string/title_activity_a10">
+        </activity>
+
+        <activity
+            android:name=".a11Activity"
+            android:label="@string/title_activity_a11">
+        </activity>
     </application>
 
 </manifest>

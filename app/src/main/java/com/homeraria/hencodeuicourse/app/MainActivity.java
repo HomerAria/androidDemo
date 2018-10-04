@@ -43,7 +43,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         titleList.add("1-7 属性动画进阶");
         titleList.add("2-1~2-3 布局");
         titleList.add("3-1 echarts使用");
-        titleList.add("3-2 echarts使用");
+        titleList.add("3-2 hencoder仿写");
+        titleList.add("3-3 贝塞尔曲线");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
@@ -83,6 +84,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 8:
                 intent.setClass(MainActivity.this, a9Activity.class);
+                break;
+            case 9:
+            intent.setClass(MainActivity.this, a10Activity.class);
+            break;
+            case 10:
+                intent.setClass(MainActivity.this, a11Activity.class);
                 break;
         }
 
