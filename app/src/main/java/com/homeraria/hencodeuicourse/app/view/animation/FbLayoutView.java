@@ -53,7 +53,8 @@ public class FbLayoutView extends RelativeLayout implements View.OnClickListener
     public void onClick(View v) {
         Toast.makeText(mContext, "dianjile ", Toast.LENGTH_SHORT).show();
 
-        //对imageview执行动画
+        //对imageview执行动画,整个动画分三步
+        //step1:
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(mImageView, "degreeY", 0, -45);
         animator1.setDuration(1000);
         animator1.setStartDelay(500);

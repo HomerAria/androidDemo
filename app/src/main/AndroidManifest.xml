@@ -33,6 +33,10 @@
                 android:label="@string/title_activity_a4">
         </activity>
         <activity
+            android:name=".a5Activity"
+            android:label="@string/title_activity_a5">
+        </activity>
+        <activity
                 android:name=".a7Activity"
                 android:label="@string/title_activity_a7"
                 android:theme="@style/AppTheme.NoActionBar">

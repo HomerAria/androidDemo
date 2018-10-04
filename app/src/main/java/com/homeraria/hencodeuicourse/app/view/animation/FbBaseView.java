@@ -53,7 +53,7 @@ public class FbBaseView extends View {
         //bitmap的尺寸
         int bitmapWidth = bitmap.getWidth();
         int bitmapHeight = bitmap.getHeight();
-        //本view的尺寸
+
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
         //bitmap的左上角在本view坐标中的位置
@@ -68,7 +68,7 @@ public class FbBaseView extends View {
         canvas.rotate(-degreeZ);
         camera.rotateY(degreeY);
         camera.applyToCanvas(canvas);
-        //计算裁切参数时清注意，此时的canvas的坐标系已经移动
+        //剪裁canvas的右半侧
         canvas.clipRect(0, -centerY, centerX, centerY);
         canvas.rotate(degreeZ);
         canvas.translate(-centerX, -centerY);

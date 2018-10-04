@@ -129,6 +129,19 @@ public class CustomCameraView extends View
 
         canvas.drawBitmap(icon, 100, 100, paint);
 
+        canvas.save();
+        canvas.rotate(45, 0, 0);
+        canvas.translate(200, 0);
+        canvas.drawBitmap(icon, 100, 100, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.translate(200, 0);
+        canvas.rotate(45, 0, 0);
+
+        canvas.drawBitmap(icon, 100, 100, paint);
+        canvas.restore();
+
         //矩形剪裁
         canvas.save();
         canvas.translate(0, 1000);

@@ -38,7 +38,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         titleList.add("1-2 paint详解");
         titleList.add("1-3 文字绘制");
         titleList.add("1-4 paint的绘制辅助（裁切+几何变换）");
-        titleList.add("1-5 绘制顺序");
+        titleList.add("1-5 3D变化");
         titleList.add("1-6 属性动画");
         titleList.add("1-7 属性动画进阶");
         titleList.add("2-1~2-3 布局");
@@ -72,6 +72,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 intent.setClass(MainActivity.this, a4Activity.class);
                 break;
             case 4:
+                intent.setClass(MainActivity.this, a5Activity.class);
                 break;
             case 5:
                 intent.setClass(MainActivity.this, a6Activity.class);

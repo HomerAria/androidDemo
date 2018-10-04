@@ -11,18 +11,18 @@ import android.support.v4.view.ViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class a11Activity extends FragmentActivity
+public class a5Activity extends FragmentActivity
 {
     //用于作为pageFragment的指示tab栏
     TabLayout mTabLayout;
     ViewPager mPager;
 
     //保存每个page的信息
-    List<a11Activity.PageModel> mPageModelList = new ArrayList<>();
+    List<a5Activity.PageModel> mPageModelList = new ArrayList<>();
 
     {
-        mPageModelList.add(new a11Activity.PageModel("二阶贝塞尔", R.layout.besier));
-        mPageModelList.add(new a11Activity.PageModel("三阶贝塞尔", R.layout.besier_tri));
+        mPageModelList.add(new a5Activity.PageModel("X rotate", R.layout.x_rotate_view));
+        mPageModelList.add(new a5Activity.PageModel("X animation", R.layout.x_rotate_anim_view));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class a11Activity extends FragmentActivity
             @Override
             public Fragment getItem(int position)
             {
-                a11Activity.PageModel pageModel = mPageModelList.get(position);
+                a5Activity.PageModel pageModel = mPageModelList.get(position);
                 return PageFragment.newInstance(pageModel.practiceLayoutRes);
             }
 

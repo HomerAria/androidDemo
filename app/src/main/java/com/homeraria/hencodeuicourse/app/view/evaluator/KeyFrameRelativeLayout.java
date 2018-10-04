@@ -43,16 +43,15 @@ public class KeyFrameRelativeLayout extends RelativeLayout
     }
 
     @Override
-    protected void onAttachedToWindow()
-    {
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         mButton = findViewById(R.id.control_button);
         mCircleView = findViewById(R.id.evaluator_view);
 
         mButton.setOnClickListener(v -> {
             ObjectAnimator animator;
 
-            switch (animationState)
-            {
+            switch (animationState) {
                 case 0:
 //                    animator = ObjectAnimator.ofObject(mCircleView, "point", new CustomPointFEvaluator(),
 //                            new PointF(0, 0), new PointF(getWidth() / 2, getHeight() / 2));
@@ -79,11 +78,9 @@ public class KeyFrameRelativeLayout extends RelativeLayout
             animator.setDuration(1000)
                     .start();
 
-            if (animationState == 0)
-            {
+            if (animationState == 0) {
                 animationState++;
-            } else
-            {
+            } else {
                 animationState = 0;
             }
         });
