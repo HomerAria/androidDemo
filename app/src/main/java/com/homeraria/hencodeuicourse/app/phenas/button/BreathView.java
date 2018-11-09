@@ -14,13 +14,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+
+import com.homeraria.hencodeuicourse.app.phenas.widget.BreathInterpolator;
 
 /**
  * Phenas呼吸效果
  */
 public class BreathView extends View {
 
-    public final float SMOOTH_SAMPLE_NUMBER = 10f, MIN_RADIUS = 100f;
+    public final float SMOOTH_SAMPLE_NUMBER = 20f, MIN_RADIUS = 100f;
     private final int SEMI_ALPHA = 200;
 
     public float MAX_RADIUS = 200f;
@@ -78,11 +81,11 @@ public class BreathView extends View {
 
     public void startAnim() {
 //        if (animator == null) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "radius", 150f, 200f, 150f);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(2000);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "radius", 100f, 200f);
+        animator.setInterpolator(new BreathInterpolator());
+        animator.setDuration(3000);
             animator.setRepeatCount(Animation.INFINITE);
-            animator.setRepeatMode(ValueAnimator.REVERSE);
+//            animator.setRepeatMode(ValueAnimator.REVERSE);
 //        }
 //        if (animator1 == null) {
 //            animator1 = ObjectAnimator.ofFloat(this, "scaleY", 1f,  1.5f, 1f);
