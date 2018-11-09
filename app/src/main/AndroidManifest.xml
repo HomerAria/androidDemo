@@ -60,6 +60,11 @@
             android:name=".a11Activity"
             android:label="@string/title_activity_a11">
         </activity>
+
+        <activity
+            android:name=".a12Activity"
+            android:label="@string/title_activity_a12">
+        </activity>
     </application>
 
 </manifest>

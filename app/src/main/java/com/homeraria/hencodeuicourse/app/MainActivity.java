@@ -13,23 +13,20 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener
-{
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
     public ListView mContentListView;
 
     private Context mContext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initViews();
     }
 
-    private void initViews()
-    {
+    private void initViews() {
         mContext = this.getBaseContext();
         mContentListView = findViewById(R.id.content_list_view);
 
@@ -45,6 +42,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         titleList.add("3-1 echarts使用");
         titleList.add("3-2 hencoder仿写");
         titleList.add("3-3 贝塞尔曲线");
+        titleList.add("4-1 Phenas呼吸按钮效果");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
@@ -53,13 +51,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-    {
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Toast.makeText(mContext, "点击位置：" + i, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
 
-        switch (i)
-        {
+        switch (i) {
             case 0:
                 intent.setClass(MainActivity.this, a1Activity.class);
                 break;
@@ -87,17 +83,19 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 intent.setClass(MainActivity.this, a9Activity.class);
                 break;
             case 9:
-            intent.setClass(MainActivity.this, a10Activity.class);
-            break;
+                intent.setClass(MainActivity.this, a10Activity.class);
+                break;
             case 10:
                 intent.setClass(MainActivity.this, a11Activity.class);
+                break;
+            case 11:    //4.phenas相关
+                intent.setClass(MainActivity.this, a12Activity.class);
                 break;
         }
 
         try {
             startActivity(intent);
-        } catch (ActivityNotFoundException e)
-        {
+        } catch (ActivityNotFoundException e) {
             Toast.makeText(mContext, "未设置跳转目的地", Toast.LENGTH_SHORT).show();
         }
     }
