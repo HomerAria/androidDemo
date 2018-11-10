@@ -42,7 +42,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         titleList.add("3-1 echarts使用");
         titleList.add("3-2 hencoder仿写");
         titleList.add("3-3 贝塞尔曲线");
-        titleList.add("4-1 Phenas呼吸按钮效果");
+        titleList.add("4-1 Phenas动画效果");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);

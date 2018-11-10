@@ -69,7 +69,7 @@ public class BreathView extends View {
         super(context, attrs, defStyleAttr);
 
         mPaint = new Paint();
-        mPaint.setColor(Color.parseColor("#00ce9b"));
+        mPaint.setColor(Color.parseColor("#00935f"));
         mPaint.setStrokeWidth((MAX_RADIUS - MIN_RADIUS) / SMOOTH_SAMPLE_NUMBER);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
