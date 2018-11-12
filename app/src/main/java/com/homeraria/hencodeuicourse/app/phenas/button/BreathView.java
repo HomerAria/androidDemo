@@ -25,10 +25,11 @@ public class BreathView extends View {
 
     public final float SMOOTH_SAMPLE_NUMBER = 20f, MIN_RADIUS = 100f;
     private final int SEMI_ALPHA = 200;
+    private final int COLOR = Color.parseColor("#00ce9b");
 
     public float MAX_RADIUS = 200f;
 
-    private Paint mPaint;
+    private Paint mPaint = new Paint();
 //    private ObjectAnimator animator, animator1;
 
     //控件的中心点坐标，其他点坐标都基于此值
@@ -41,14 +42,20 @@ public class BreathView extends View {
         this(context, null);
     }
 
+    /**
+     * 会不断被ValueAnimator调用，需要放置mRadius被重复调用,new Paint()不能再这里执行
+     * @param degreeY
+     */
     @Keep
     public void setRadius(float degreeY) {
         MAX_RADIUS = degreeY;
-        mPaint = new Paint();
-        mPaint.setColor(Color.parseColor("#00ce9b"));
-        mPaint.setStrokeWidth((MAX_RADIUS - MIN_RADIUS) / SMOOTH_SAMPLE_NUMBER);
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+//        if(mPaint == null) {
+//            mPaint = new Paint();
+            mPaint.setColor(COLOR);
+            mPaint.setStrokeWidth((MAX_RADIUS - MIN_RADIUS) / SMOOTH_SAMPLE_NUMBER);
+            mPaint.setAntiAlias(true);
+            mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+//        }
 
         alpha = SEMI_ALPHA;
         radius = MIN_RADIUS;

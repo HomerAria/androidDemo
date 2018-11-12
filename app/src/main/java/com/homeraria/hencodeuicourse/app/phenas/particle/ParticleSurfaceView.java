@@ -20,7 +20,7 @@ import java.util.Random;
  * @date on 2018/11/10 17:51
  */
 public class ParticleSurfaceView extends SurfaceView implements Runnable, SurfaceHolder.Callback {
-    private static final int FRAME_RATE = 15;   //[ms]
+    private static final int FRAME_RATE = 16;   //[ms]
     private static final int MAX_NUM = 50;     //随机粒子数量
     private Canvas mCanvas;
     private boolean isRun;
@@ -85,8 +85,11 @@ public class ParticleSurfaceView extends SurfaceView implements Runnable, Surfac
                         // 清屏
                         mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
-                        for (BaseParticle circle : mCircles) {
-                            circle.drawItem(mCanvas);
+//                        for (BaseParticle circle : mCircles) {
+//                            circle.drawItem(mCanvas);
+//                        }
+                        for (int i = 0; i < mCircles.size(); i++) {
+                            mCircles.get(i).drawItem(mCanvas);
                         }
                         //frame rate
                         Thread.sleep(FRAME_RATE);

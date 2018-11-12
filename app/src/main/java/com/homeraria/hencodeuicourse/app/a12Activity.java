@@ -25,8 +25,8 @@ public class a12Activity extends FragmentActivity
 
     {
         mPageModelList.add(new a12Activity.PageModel("涟漪", R.layout.phenas_water_ripple));
-//        mPageModelList.add(new a12Activity.PageModel("呼吸", R.layout.phenas_breath));
-//        mPageModelList.add(new a12Activity.PageModel("粒子直线", R.layout.phenas_particle_stright));
+        mPageModelList.add(new a12Activity.PageModel("呼吸", R.layout.phenas_breath));
+        mPageModelList.add(new a12Activity.PageModel("粒子直线Surface", R.layout.phenas_particle_stright));
         mPageModelList.add(new a12Activity.PageModel("粒子直线View", R.layout.phenas_particle_stright2));
 //        mPageModelList.add(new a12Activity.PageModel("粒子反弹", R.layout.phenas_breath));
     }
