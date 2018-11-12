@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * @author sean
- * @describe 单个圆形基础粒子
+ * @describe 单个圆形基础粒子：除了起始位置，每个粒子速度不同，最终透明度不同，尺寸不同
  * @email sean.zhou@oppo.com
  * @date on 2018/11/10 16:24
  */

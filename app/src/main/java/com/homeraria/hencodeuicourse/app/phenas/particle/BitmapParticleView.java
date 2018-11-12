@@ -4,11 +4,21 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.media.ThumbnailUtils;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+
+import com.homeraria.hencodeuicourse.app.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,35 +30,43 @@ import java.util.Random;
  * @email sean.zhou@oppo.com
  * @date on 2018/11/12 11:33
  */
-public class ParticleView extends View {
+public class BitmapParticleView extends View {
     private static final String TAG = "ParticleView";
     private static final int FRAME_RATE = 16;   //[ms]
-    private static final int MAX_NUM = 50;     //随机粒子数量
+    private static final int MAX_NUM = 20;     //随机粒子数量
 
     private ValueAnimator mParticleAnim;
     private int mMeasuredWidth, mMeasuredHeight;
     private List<BaseParticle> mCircles = new ArrayList<>();
     private Random mRandom = new Random();
+    private Matrix mMatrix = new Matrix();
+    private Paint mPaint = new Paint();
+    private Bitmap mBitmap;
 
-    public ParticleView(Context context) {
+    public BitmapParticleView(Context context) {
         super(context);
         init();
     }
 
-    public ParticleView(Context context, @Nullable AttributeSet attrs) {
+    public BitmapParticleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ParticleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public BitmapParticleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     private void init() {
         setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        mBitmap = getParticleBitmap(R.mipmap.pill);
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.WHITE);
+        mPaint.setDither(true);
+        mPaint.setStyle(Paint.Style.FILL);
 
-        //通过ValueAnimator使View运动起来
+                //通过ValueAnimator使View运动起来
         mParticleAnim = ValueAnimator.ofInt(0).setDuration(FRAME_RATE);
         mParticleAnim.setRepeatCount(ValueAnimator.INFINITE);
         mParticleAnim.addListener(new AnimatorListenerAdapter() {
@@ -83,7 +101,7 @@ public class ParticleView extends View {
 
         if (mCircles.size() == 0 && mMeasuredWidth != 0) {
             for (int i = 0; i < MAX_NUM; i++) {
-                mCircles.add(new CircleParticle(mRandom, mMeasuredWidth, mMeasuredHeight));
+                mCircles.add(new BitmapParticle(mBitmap, mMatrix, mPaint, mRandom, mMeasuredWidth, mMeasuredHeight));
             }
         }
         if (!mParticleAnim.isRunning()) {
@@ -115,5 +133,17 @@ public class ParticleView extends View {
             mParticleAnim.end();
             mParticleAnim = null;
         }
+    }
+
+    private Bitmap getParticleBitmap(@DrawableRes int resId) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        return ThumbnailUtils.extractThumbnail(BitmapFactory.decodeResource(getContext().getResources(), resId, options), dip2px(30), dip2px(30), ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+//        return Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), resId, options),
+//                dip2px(30), dip2px(30), true);
+    }
+
+    private int dip2px(float value) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getContext().getResources().getDisplayMetrics());
     }
 }

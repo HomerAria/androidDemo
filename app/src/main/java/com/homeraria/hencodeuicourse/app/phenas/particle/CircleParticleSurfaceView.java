@@ -19,7 +19,7 @@ import java.util.Random;
  * @email sean.zhou@oppo.com
  * @date on 2018/11/10 17:51
  */
-public class ParticleSurfaceView extends SurfaceView implements Runnable, SurfaceHolder.Callback {
+public class CircleParticleSurfaceView extends SurfaceView implements Runnable, SurfaceHolder.Callback {
     private static final int FRAME_RATE = 16;   //[ms]
     private static final int MAX_NUM = 50;     //随机粒子数量
     private Canvas mCanvas;
@@ -29,17 +29,17 @@ public class ParticleSurfaceView extends SurfaceView implements Runnable, Surfac
     private Random mRandom = new Random();
     private List<BaseParticle> mCircles = new ArrayList<>();
 
-    public ParticleSurfaceView(Context context) {
+    public CircleParticleSurfaceView(Context context) {
         super(context);
         initView();
     }
 
-    public ParticleSurfaceView(Context context, AttributeSet attrs) {
+    public CircleParticleSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
 
-    public ParticleSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircleParticleSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
     }

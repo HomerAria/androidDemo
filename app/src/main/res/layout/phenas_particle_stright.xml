@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#111">
 
-    <com.homeraria.hencodeuicourse.app.phenas.particle.ParticleSurfaceView
+    <com.homeraria.hencodeuicourse.app.phenas.particle.CircleParticleSurfaceView
         android:id="@+id/target"
         android:layout_width="300dp"
         android:layout_height="300dp"
