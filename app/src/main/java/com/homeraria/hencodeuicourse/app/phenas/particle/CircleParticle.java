@@ -61,7 +61,7 @@ public class CircleParticle {
 //        mDisX = mSpeed * mRandomGenerator.nextFloat();
 //        mDisY = mSpeed * mRandomGenerator.nextFloat();
         mDisX = (float) (mSpeed * mRandomGenerator.nextGaussian());
-        mDisY = (float) (mSpeed * mRandomGenerator.nextGaussian());
+        mDisY = mSpeed - mDisX;    //x,y方向运动速度需要相互关联，防止出现两者都是0而使粒子静止的情况
 
         //判断移动的最大距离
         if (judgeInner()) {
