@@ -76,7 +76,7 @@ public class BreathView extends View {
 
         alpha = SEMI_ALPHA;
         radius = MIN_RADIUS;
-//        startAnim();
+        startAnim();
     }
 
     public void startAnim() {
@@ -114,7 +114,7 @@ public class BreathView extends View {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        startAnim();
+//        startAnim();
 
 //        mControlPoint.x = event.getX();
 //        mControlPoint.y = event.getY();
@@ -135,7 +135,7 @@ public class BreathView extends View {
             mPaint.setAlpha(alpha);
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeWidth((MAX_RADIUS - MIN_RADIUS) / SMOOTH_SAMPLE_NUMBER);
-            Log.v("sean", alpha + "");
+//            Log.v("sean", alpha + "");
             canvas.drawCircle(mCenterX, mCenterY, radius, mPaint);
         }
 //        while (isBreathing) {

@@ -15,7 +15,7 @@ import java.util.Random;
  * @email sean.zhou@oppo.com
  * @date on 2018/11/10 16:24
  */
-public class CircleParticle {
+public class CircleParticle implements BaseParticle {
     private static final int ALPHA_MIN = 10;
     private static final float DEFAULT_RADIUS = 2f;
     private static final float DEFAULT_SPEED = 5f;
@@ -32,7 +32,7 @@ public class CircleParticle {
     private boolean mIsNeedChange = true;
 
     private Random mRandomGenerator;
-    private Paint mPaint = new Paint();
+    private Paint mPaint = new Paint();    //每个粒子需要自己独立的paint，不能相互干涉
 
     public CircleParticle(Random random, int width, int height) {
         this.mWidth = width;
@@ -87,11 +87,11 @@ public class CircleParticle {
     private void setPaint() {
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.parseColor("#00935f"));
-        mPaint.setAlpha(mAlpha);
         mPaint.setDither(true);
         mPaint.setStyle(Paint.Style.FILL);
     }
 
+    @Override
     public void drawItem(Canvas canvas) {
         if (mX == mStartX) {
             mPaint.setAlpha(ALPHA_MIN);
@@ -132,6 +132,10 @@ public class CircleParticle {
         return (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
+    /**
+     * 判断粒子当前位置是否在运动区域内
+     * @return true在区域内，false不在区域内
+     */
     private boolean judgeInner() {
         float judgeWL = INNER_RATIO * mWidth;
         float judgeWR = (1 - INNER_RATIO) * mWidth;
@@ -141,10 +145,6 @@ public class CircleParticle {
 
         boolean judgeX = mX >= judgeWL && mX <= judgeWR;
         boolean judgeY = mY >= judgeHT && mY <= judgeHB;
-        if (judgeX && judgeY) {
-            return true;
-        } else {
-            return false;
-        }
+        return judgeX && judgeY;
     }
 }
