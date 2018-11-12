@@ -52,13 +52,16 @@ public class CircleParticle {
         mStartRadius = dip2Px(mRandomGenerator.nextInt(10) + 3);
         mRadius = mStartRadius;
         mAlpha = mRandomGenerator.nextInt(50) + 200;
-        mSpeed = (float)mRandomGenerator.nextInt(5) + 2f;
+        mSpeed = (float)mRandomGenerator.nextInt(5) + 3f;
 
         mIsAddX = mRandomGenerator.nextBoolean();
         mIsAddY = mRandomGenerator.nextBoolean();
 
-        mDisX = mSpeed * (mRandomGenerator.nextFloat() + 1);
-        mDisY = mSpeed * (mRandomGenerator.nextFloat() + 1);
+        //nextFloat是[0,1]的均匀分布，而nextGaussian为正态分布
+//        mDisX = mSpeed * mRandomGenerator.nextFloat();
+//        mDisY = mSpeed * mRandomGenerator.nextFloat();
+        mDisX = (float) (mSpeed * mRandomGenerator.nextGaussian());
+        mDisY = (float) (mSpeed * mRandomGenerator.nextGaussian());
 
         //判断移动的最大距离
         if (judgeInner()) {
