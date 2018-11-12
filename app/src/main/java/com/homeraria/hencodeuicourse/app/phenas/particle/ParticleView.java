@@ -96,8 +96,13 @@ public class ParticleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
-        for (BaseParticle circle : mCircles) {
-            circle.drawItem(canvas);
+        //会随着动画运行不断产生ArrayList对象
+//        for (BaseParticle circle : mCircles) {
+//            circle.drawItem(canvas);
+//        }
+        //不会产生新的ArrayList对象
+        for (int i = 0; i < mCircles.size(); i++) {
+            mCircles.get(i).drawItem(canvas);
         }
         canvas.restore();
     }
