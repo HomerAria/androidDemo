@@ -41,18 +41,13 @@ public class RelativeLayoutMulti extends RelativeLayout
         super(context, attrs, defStyleAttr);
     }
 
-    public RelativeLayoutMulti(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-    {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     /**
      * ALT+insert可以自动添加需要override的方法
      * 此方法在界面可见<--->不可见之间转化时调用，用于pager左右切换时更新view
      */
     @Override
-    protected void onAttachedToWindow()
-    {
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         mButton = findViewById(R.id.control_button);
         mImageView = findViewById(R.id.icon_view);
 
@@ -66,19 +61,16 @@ public class RelativeLayoutMulti extends RelativeLayout
 
         mButton.setOnClickListener(v -> {
             //直接使用propertyAnimation
-            switch (animationState)
-            {
+            switch (animationState) {
                 case 0:
 //                    mImageView.animate()
 //                            .scaleX(0)
 //                            .scaleY(0)
 //                            .alpha(0);
                     ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(mImageView, holderB1, holderB2, holderB3);
-                    if(init)
-                    {
+                    if (init) {
                         animator.start();
-                    }else
-                    {
+                    } else {
                         ObjectAnimator animator4 = ObjectAnimator.ofFloat(mImageView, "translationX", Utils.dpToPixel(0));
                         ObjectAnimator animator5 = ObjectAnimator.ofFloat(mImageView, "rotation", 0);
 
@@ -110,11 +102,9 @@ public class RelativeLayoutMulti extends RelativeLayout
 
             init = false;
 
-            if (animationState == 0)
-            {
+            if (animationState == 0) {
                 animationState++;
-            } else
-            {
+            } else {
                 animationState = 0;
             }
 
