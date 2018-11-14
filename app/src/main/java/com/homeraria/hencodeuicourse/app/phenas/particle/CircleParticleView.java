@@ -26,7 +26,7 @@ public class CircleParticleView extends View {
     private static final int MAX_NUM = 50;     //随机粒子数量
 
     private ValueAnimator mParticleAnim;
-    private int mMeasuredWidth, mMeasuredHeight;
+    private int mMeasuredWidth, mMeasuredHeight, mOriginalHeight = 0;
     private List<BaseParticle> mCircles = new ArrayList<>();
     private Random mRandom = new Random();
 
@@ -60,6 +60,25 @@ public class CircleParticleView extends View {
         });
     }
 
+    /**
+     * 清除所有粒子
+     */
+    public void clearParticles(){
+        if(mCircles != null && mCircles.size()>0){
+            mCircles.clear();
+            invalidate();
+        }
+    }
+
+    public void showParticles(){
+        if (mCircles.size() == 0 && mMeasuredWidth != 0) {
+            for (int i = 0; i < MAX_NUM; i++) {
+                mCircles.add(new CircleParticle(mRandom, mMeasuredWidth, mOriginalHeight));
+            }
+            invalidate();
+        }
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -80,6 +99,10 @@ public class CircleParticleView extends View {
         //相比onMeasure(),不会发生多次回调，且w&h就是最终view的宽高
         mMeasuredWidth = w;
         mMeasuredHeight = h;
+
+        if(mOriginalHeight == 0){
+            mOriginalHeight = h;
+        }
 
         if (mCircles.size() == 0 && mMeasuredWidth != 0) {
             for (int i = 0; i < MAX_NUM; i++) {
@@ -105,6 +128,11 @@ public class CircleParticleView extends View {
             mCircles.get(i).drawItem(canvas);
         }
         canvas.restore();
+    }
+
+    public void setHeight(float heightRatio) {
+        this.getLayoutParams().height = (int) (mOriginalHeight * heightRatio);
+        this.requestLayout();
     }
 
     @Override
