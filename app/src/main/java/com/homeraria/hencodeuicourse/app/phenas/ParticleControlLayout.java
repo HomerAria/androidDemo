@@ -25,7 +25,7 @@ import com.homeraria.hencodeuicourse.app.phenas.particle.CircleParticleView;
  */
 public class ParticleControlLayout extends RelativeLayout {
     private CircleParticleView mParticleView;
-    private Button mButton, mButton2;
+    private Button mButton, mButton2, mButtonReset;
     private TextView mTextView;
     private ImageView mImageView;
     private AnimatorSet mAnimatorSet1, mAnimatorSet2;
@@ -52,6 +52,7 @@ public class ParticleControlLayout extends RelativeLayout {
         mParticleView = findViewById(R.id.target);
         mButton = findViewById(R.id.control_button);
         mButton2 = findViewById(R.id.control_button2);
+        mButtonReset = findViewById(R.id.control_button0);
         mTextView = findViewById(R.id.desc);
         mImageView = findViewById(R.id.screen_shot);
 //        mImageView.setVisibility(GONE);
@@ -128,6 +129,8 @@ public class ParticleControlLayout extends RelativeLayout {
         });
 
         mButton2.setOnClickListener(v -> mParticleView.startGather());
+
+        mButtonReset.setOnClickListener(v->mParticleView.reset());
     }
 
 }

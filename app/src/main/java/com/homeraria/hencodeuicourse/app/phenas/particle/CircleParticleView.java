@@ -92,6 +92,16 @@ public class CircleParticleView extends View {
         isGathering = true;
     }
 
+    public void reset(){
+        isGathering = false;
+        getRandomGatheringPosition();
+        if (mCircles != null && mCircles.size() > 0)  mCircles.clear();
+        for (int i = 0; i < MAX_NUM; i++) {
+            mCircles.add(new CircleParticle(mRandom, mMeasuredWidth, mOriginalHeight));
+        }
+        invalidate();
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
