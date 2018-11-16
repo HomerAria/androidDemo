@@ -112,7 +112,8 @@ public class CircleParticleView extends View {
         //相比onMeasure(),不会发生多次回调，且w&h就是最终view的宽高
         mMeasuredWidth = w;     //不会发生改变
         mMeasuredHeight = h;
-        getDefaultGatheringPosition();
+//        getDefaultGatheringPosition();
+        getRandomGatheringPosition();
 
         if (mOriginalHeight == 0) {
             mOriginalHeight = h;
@@ -159,6 +160,14 @@ public class CircleParticleView extends View {
         mGatheringX = mMeasuredWidth / 2;   //不需要获取绝对坐标，是根据本View的坐标系相对绘制的
         mGatheringY = mMeasuredHeight / 2;
         Log.v("sean", "gatherX=" + mGatheringX + ", Y=" + mGatheringY + ", screenY");
+    }
+
+    /**
+     * 在本View范围内随机设置汇聚点
+     */
+    private void getRandomGatheringPosition(){
+        mGatheringX = (float) (mMeasuredWidth *(0.25+ mRandom.nextFloat()/2));
+        mGatheringY = (float) (mMeasuredHeight *(0.25+ mRandom.nextFloat()/2));
     }
 
     public void setHeight(float heightRatio) {

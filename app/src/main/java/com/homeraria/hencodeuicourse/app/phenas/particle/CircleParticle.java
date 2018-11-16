@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.util.TypedValue;
 
 import java.util.Random;
@@ -19,6 +20,7 @@ public class CircleParticle implements BaseParticle {
     private static final float DEFAULT_RADIUS = 2f;
     private static final float DEFAULT_SPEED = 5f;
     private static final float INNER_RATIO = 0.2f;
+    private static final int GATHER_FRAME_NUMBER = 50;
 
     private int mAlpha = 200;
     private float mSpeed = DEFAULT_SPEED;
@@ -33,7 +35,8 @@ public class CircleParticle implements BaseParticle {
     private Random mRandomGenerator;
     private Paint mPaint = new Paint();    //每个粒子需要自己独立的paint，不能相互干涉
     private boolean isNeedGather = false;  //默认不需要聚拢
-    private float mGatherCountDown = 50;   //初始值定义汇聚速度，同时计数何时汇聚结束
+    private float mGatherCountDown = GATHER_FRAME_NUMBER;   //初始值定义汇聚速度，同时计数何时汇聚结束
+    private PointF mStartPoint, mOriginalTargetPoint, mEndPoint;
 
     public CircleParticle(Random random, int width, int height) {
         this.mWidth = width;
@@ -114,33 +117,50 @@ public class CircleParticle implements BaseParticle {
 
     @Override
     public void drawItemGathering(Canvas canvas, float gatheringX, float gatheringY) {
-        //绘制
+        //绘制直线运动
+//        if (!isNeedGather) {
+//            isNeedGather = true;
+//            setGatherParam(gatheringX, gatheringY);
+//        }
+//
+//        canvas.drawCircle(mX += mDisX, mY += mDisY, mRadius, mPaint);
+//        mGatherCountDown--;
+//        if(mGatherCountDown == 0f){
+//            mDisX = 0;
+//            mDisY = 0;
+//        }
+
+        //绘制贝塞尔曲线运动
         if (!isNeedGather) {
             isNeedGather = true;
-            setGatherParam(gatheringX, gatheringY);
+            mStartPoint = new PointF(mX, mY);
+            mEndPoint = new PointF(gatheringX, gatheringY);
+            float targetX = mX + getPNValue(mIsAddX, mDisX) * GATHER_FRAME_NUMBER;
+            float targetY = mY + getPNValue(mIsAddY, mDisY) * GATHER_FRAME_NUMBER;
+            mOriginalTargetPoint = new PointF(targetX, targetY);
         }
-        //直线运动
-        canvas.drawCircle(mX += mDisX, mY += mDisY, mRadius, mPaint);
 
-        
+        PointF currentPoint = getBezierPoint(mStartPoint, mOriginalTargetPoint, mEndPoint, (GATHER_FRAME_NUMBER - mGatherCountDown) / GATHER_FRAME_NUMBER);
+        if (mGatherCountDown >= 0f) {
+            mX = currentPoint.x;
+            mY = currentPoint.y;
+        }
+        canvas.drawCircle(mX, mY, mRadius, mPaint);
         mGatherCountDown--;
-        if(mGatherCountDown == 0f){
-            mDisX = 0;
-            mDisY = 0;
-        }
-
-//        double moveDis = Math.sqrt(Math.pow(mX - mStartX, 2) + Math.pow(mY - mStartY, 2));
-        if (mIsNeedChange) {
-            //alpha&ratio都会随着运动过程做变化，需要从小到大再变小：因为匀速运动，moveDis是时间线性的，所以可以将moveDis当成时间轴
-//            float ratio = (float) ((moveDis / mDistance)) * 5;
-//            mPaint.setAlpha((int) ((mAlpha - ALPHA_MIN) * ratio + ALPHA_MIN));
-//            mRadius = mStartRadius * (1 - ratio);
-        }
     }
 
     private void setGatherParam(float gatherX, float gatherY) {
         mDisX = (gatherX - mX) / mGatherCountDown;
         mDisY = (gatherY - mY) / mGatherCountDown;
+    }
+
+    private PointF getBezierPoint(PointF p0, PointF p1, PointF p2, float time) {
+        PointF currentPoint = new PointF();
+
+        currentPoint.x = (float) (Math.pow(1 - time, 2) * p0.x + 2 * time * (1 - time) * p1.x + Math.pow(time, 2) * p2.x);
+        currentPoint.y = (float) (Math.pow(1 - time, 2) * p0.y + 2 * time * (1 - time) * p1.y + Math.pow(time, 2) * p2.y);
+
+        return currentPoint;
     }
 
     private int dip2Px(float pxValue) {
