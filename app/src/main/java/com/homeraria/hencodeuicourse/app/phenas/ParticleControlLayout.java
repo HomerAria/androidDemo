@@ -4,15 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Handler;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AnimationSet;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,7 +25,7 @@ import com.homeraria.hencodeuicourse.app.phenas.particle.CircleParticleView;
  */
 public class ParticleControlLayout extends RelativeLayout {
     private CircleParticleView mParticleView;
-    private Button mButton;
+    private Button mButton, mButton2;
     private TextView mTextView;
     private ImageView mImageView;
     private AnimatorSet mAnimatorSet1, mAnimatorSet2;
@@ -57,6 +51,7 @@ public class ParticleControlLayout extends RelativeLayout {
 
         mParticleView = findViewById(R.id.target);
         mButton = findViewById(R.id.control_button);
+        mButton2 = findViewById(R.id.control_button2);
         mTextView = findViewById(R.id.desc);
         mImageView = findViewById(R.id.screen_shot);
 //        mImageView.setVisibility(GONE);
@@ -92,7 +87,7 @@ public class ParticleControlLayout extends RelativeLayout {
         };
 
         mButton.setOnClickListener(v -> {
-            if(mAnimatorSet1 == null){
+            if (mAnimatorSet1 == null) {
                 mAnimator1 = ObjectAnimator.ofFloat(mParticleView, "height", 1, 0.25f);
                 mAnimator1.setInterpolator(new DecelerateInterpolator());
                 mAnimator1.setDuration(1000);
@@ -105,7 +100,7 @@ public class ParticleControlLayout extends RelativeLayout {
                 mAnimatorSet1.playTogether(mAnimator1, mAnimation1Text);
                 mAnimatorSet1.addListener(mShowListener);
             }
-            if(mAnimatorSet2 == null){
+            if (mAnimatorSet2 == null) {
                 mAnimator2 = ObjectAnimator.ofFloat(mParticleView, "height", 0.25f, 1f);
                 mAnimator2.setInterpolator(new DecelerateInterpolator());
                 mAnimator2.setDuration(1000);
@@ -122,15 +117,17 @@ public class ParticleControlLayout extends RelativeLayout {
                 mAnimatorSet2.playTogether(mAnimator2, mAnimation2Text, mAnimation2Image);
             }
 
-            if(isFirst) {
+            if (isFirst) {
                 new Handler().postDelayed(() -> mParticleView.clearParticles(), 1000);
                 mAnimatorSet1.start();
-            }else{
-                 mParticleView.showParticles();
+            } else {
+                mParticleView.showParticles();
                 mAnimatorSet2.start();
             }
             isFirst = !isFirst;
         });
+
+        mButton2.setOnClickListener(v -> mParticleView.startGather());
     }
 
 }

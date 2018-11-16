@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -29,6 +31,10 @@ public class CircleParticleView extends View {
     private int mMeasuredWidth, mMeasuredHeight, mOriginalHeight = 0;
     private List<BaseParticle> mCircles = new ArrayList<>();
     private Random mRandom = new Random();
+
+    private float mGatheringX, mGatheringY;     //汇聚中心位置
+    private Paint mGatheringPaint = new Paint();
+    private boolean isGathering = false;
 
     public CircleParticleView(Context context) {
         super(context);
@@ -58,25 +64,32 @@ public class CircleParticleView extends View {
                 invalidate();
             }
         });
+
+        mGatheringPaint.setColor(Color.YELLOW);
+        mGatheringPaint.setStyle(Paint.Style.FILL);
     }
 
     /**
      * 清除所有粒子
      */
-    public void clearParticles(){
-        if(mCircles != null && mCircles.size()>0){
+    public void clearParticles() {
+        if (mCircles != null && mCircles.size() > 0) {
             mCircles.clear();
             invalidate();
         }
     }
 
-    public void showParticles(){
+    public void showParticles() {
         if (mCircles.size() == 0 && mMeasuredWidth != 0) {
             for (int i = 0; i < MAX_NUM; i++) {
                 mCircles.add(new CircleParticle(mRandom, mMeasuredWidth, mOriginalHeight));
             }
             invalidate();
         }
+    }
+
+    public void startGather() {
+        isGathering = true;
     }
 
     @Override
@@ -97,10 +110,11 @@ public class CircleParticleView extends View {
 
         Log.d(TAG, "onSizeChanged: " + w + "+" + h);
         //相比onMeasure(),不会发生多次回调，且w&h就是最终view的宽高
-        mMeasuredWidth = w;
+        mMeasuredWidth = w;     //不会发生改变
         mMeasuredHeight = h;
+        getDefaultGatheringPosition();
 
-        if(mOriginalHeight == 0){
+        if (mOriginalHeight == 0) {
             mOriginalHeight = h;
         }
 
@@ -121,13 +135,30 @@ public class CircleParticleView extends View {
         canvas.save();
         //会随着动画运行不断产生ArrayList对象
 //        for (BaseParticle circle : mCircles) {
-//            circle.drawItem(canvas);
+//            circle.drawItemRandomly(canvas);
 //        }
         //不会产生新的ArrayList对象
         for (int i = 0; i < mCircles.size(); i++) {
-            mCircles.get(i).drawItem(canvas);
+            if (isGathering) {
+                mCircles.get(i).drawItemGathering(canvas, mGatheringX, mGatheringY);
+            } else {
+                mCircles.get(i).drawItemRandomly(canvas);
+            }
         }
         canvas.restore();
+
+        canvas.save();
+        canvas.drawCircle(mGatheringX, mGatheringY, 25, mGatheringPaint);
+        canvas.restore();
+    }
+
+    /**
+     * 默认汇聚点为View的中心点
+     */
+    private void getDefaultGatheringPosition() {
+        mGatheringX = mMeasuredWidth / 2;   //不需要获取绝对坐标，是根据本View的坐标系相对绘制的
+        mGatheringY = mMeasuredHeight / 2;
+        Log.v("sean", "gatherX=" + mGatheringX + ", Y=" + mGatheringY + ", screenY");
     }
 
     public void setHeight(float heightRatio) {

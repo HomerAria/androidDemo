@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.util.TypedValue;
 
 import java.util.Random;
@@ -33,17 +32,19 @@ public class CircleParticle implements BaseParticle {
 
     private Random mRandomGenerator;
     private Paint mPaint = new Paint();    //每个粒子需要自己独立的paint，不能相互干涉
+    private boolean isNeedGather = false;  //默认不需要聚拢
+    private float mGatherCountDown = 50;   //初始值定义汇聚速度，同时计数何时汇聚结束
 
     public CircleParticle(Random random, int width, int height) {
         this.mWidth = width;
         this.mHeight = height;
         this.mRandomGenerator = random;
 
-        setRandomGenerator();
+        setRandomParam();
         setPaint();
     }
 
-    private void setRandomGenerator() {
+    private void setRandomParam() {
         mStartX = mRandomGenerator.nextFloat() * mWidth;
         mStartY = mRandomGenerator.nextFloat() * mHeight;
         mX = mStartX;
@@ -52,7 +53,7 @@ public class CircleParticle implements BaseParticle {
         mStartRadius = dip2Px(mRandomGenerator.nextInt(10) + 3);
         mRadius = mStartRadius;
         mAlpha = mRandomGenerator.nextInt(50) + 200;
-        mSpeed = (float)mRandomGenerator.nextInt(5) + 3f;
+        mSpeed = (float) mRandomGenerator.nextInt(5) + 3f;
 
         mIsAddX = mRandomGenerator.nextBoolean();
         mIsAddY = mRandomGenerator.nextBoolean();
@@ -92,7 +93,7 @@ public class CircleParticle implements BaseParticle {
     }
 
     @Override
-    public void drawItem(Canvas canvas) {
+    public void drawItemRandomly(Canvas canvas) {
         if (mX == mStartX) {
             mPaint.setAlpha(ALPHA_MIN);
         }
@@ -111,6 +112,37 @@ public class CircleParticle implements BaseParticle {
         }
     }
 
+    @Override
+    public void drawItemGathering(Canvas canvas, float gatheringX, float gatheringY) {
+        //绘制
+        if (!isNeedGather) {
+            isNeedGather = true;
+            setGatherParam(gatheringX, gatheringY);
+        }
+        //直线运动
+        canvas.drawCircle(mX += mDisX, mY += mDisY, mRadius, mPaint);
+
+        
+        mGatherCountDown--;
+        if(mGatherCountDown == 0f){
+            mDisX = 0;
+            mDisY = 0;
+        }
+
+//        double moveDis = Math.sqrt(Math.pow(mX - mStartX, 2) + Math.pow(mY - mStartY, 2));
+        if (mIsNeedChange) {
+            //alpha&ratio都会随着运动过程做变化，需要从小到大再变小：因为匀速运动，moveDis是时间线性的，所以可以将moveDis当成时间轴
+//            float ratio = (float) ((moveDis / mDistance)) * 5;
+//            mPaint.setAlpha((int) ((mAlpha - ALPHA_MIN) * ratio + ALPHA_MIN));
+//            mRadius = mStartRadius * (1 - ratio);
+        }
+    }
+
+    private void setGatherParam(float gatherX, float gatherY) {
+        mDisX = (gatherX - mX) / mGatherCountDown;
+        mDisY = (gatherY - mY) / mGatherCountDown;
+    }
+
     private int dip2Px(float pxValue) {
         int dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pxValue, Resources.getSystem().getDisplayMetrics());
         return dp;
@@ -121,7 +153,7 @@ public class CircleParticle implements BaseParticle {
     }
 
     private void resetDisXY() {
-        setRandomGenerator();
+        setRandomParam();
 
         mX = mStartX;
         mY = mStartY;
@@ -134,6 +166,7 @@ public class CircleParticle implements BaseParticle {
 
     /**
      * 判断粒子当前位置是否在运动区域内
+     *
      * @return true在区域内，false不在区域内
      */
     private boolean judgeInner() {

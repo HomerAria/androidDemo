@@ -9,5 +9,7 @@ import android.graphics.Canvas;
  * @date on 2018/11/12 11:08
  */
 public interface BaseParticle {
-    void drawItem(Canvas canvas);
+    void drawItemRandomly(Canvas canvas);
+
+    void drawItemGathering(Canvas canvas, float gatheringX, float gatheringY);
 }

@@ -116,11 +116,11 @@ public class BitmapParticleView extends View {
         canvas.save();
         //会随着动画运行不断产生ArrayList对象
 //        for (BaseParticle circle : mCircles) {
-//            circle.drawItem(canvas);
+//            circle.drawItemRandomly(canvas);
 //        }
         //不会产生新的ArrayList对象
         for (int i = 0; i < mCircles.size(); i++) {
-            mCircles.get(i).drawItem(canvas);
+            mCircles.get(i).drawItemRandomly(canvas);
         }
         canvas.restore();
     }

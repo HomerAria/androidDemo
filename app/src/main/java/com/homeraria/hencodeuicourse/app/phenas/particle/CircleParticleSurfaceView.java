@@ -86,10 +86,10 @@ public class CircleParticleSurfaceView extends SurfaceView implements Runnable, 
                         mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
 //                        for (BaseParticle circle : mCircles) {
-//                            circle.drawItem(mCanvas);
+//                            circle.drawItemRandomly(mCanvas);
 //                        }
                         for (int i = 0; i < mCircles.size(); i++) {
-                            mCircles.get(i).drawItem(mCanvas);
+                            mCircles.get(i).drawItemRandomly(mCanvas);
                         }
                         //frame rate
                         Thread.sleep(FRAME_RATE);

@@ -63,13 +63,18 @@ public class BitmapParticle implements BaseParticle {
 
 
     @Override
-    public void drawItem(Canvas canvas) {
+    public void drawItemRandomly(Canvas canvas) {
         //绘制
         mBitmapMatrix.reset();
         mBitmapMatrix.preTranslate(mX += getPNValue(mIsAddX, mDisX), mY += getPNValue(mIsAddY, mDisY));
         mBitmapMatrix.preRotate(mDegrees += mDisDegree, mBitmapCenterX, mBitmapCenterY);
         canvas.drawBitmap(mDrawBitmap, mBitmapMatrix, mPaint);
         judgeOutline();
+    }
+
+    @Override
+    public void drawItemGathering(Canvas canvas, float gatheringX, float gatheringY) {
+
     }
 
     private void judgeOutline() {
