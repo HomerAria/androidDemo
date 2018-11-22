@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         titleList.add("3-2 hencoder仿写");
         titleList.add("3-3 贝塞尔曲线");
         titleList.add("4-1 Phenas动画效果");
+        titleList.add("4-2 Material设计");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
@@ -90,6 +91,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 break;
             case 11:    //4.phenas相关
                 intent.setClass(MainActivity.this, a12Activity.class);
+                break;
+            case 12:
+                intent.setClass(MainActivity.this, a13Activity.class);
                 break;
         }
 

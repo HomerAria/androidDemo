@@ -158,9 +158,9 @@ public class CircleParticleView extends View {
         }
         canvas.restore();
 
-        canvas.save();
-        canvas.drawCircle(mGatheringX, mGatheringY, 25, mGatheringPaint);
-        canvas.restore();
+//        canvas.save();
+//        canvas.drawCircle(mGatheringX, mGatheringY, 25, mGatheringPaint);
+//        canvas.restore();
     }
 
     /**

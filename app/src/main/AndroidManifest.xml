@@ -1,70 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.homeraria.hencodeuicourse.app">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.homeraria.hencodeuicourse.app">
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/pill"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:icon="@mipmap/pill"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".MainActivity"
-                android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".a1Activity"
-                android:label="@string/title_activity_a1">
-        </activity>
+            android:name=".a1Activity"
+            android:label="@string/title_activity_a1" />
         <activity
-                android:name=".a2Activity"
-                android:label="@string/title_activity_a2">
-        </activity>
+            android:name=".a2Activity"
+            android:label="@string/title_activity_a2" />
         <activity
-                android:name=".a6Activity"
-                android:label="@string/title_activity_a3">
-        </activity>
+            android:name=".a6Activity"
+            android:label="@string/title_activity_a3" />
         <activity
-                android:name=".a4Activity"
-                android:label="@string/title_activity_a4">
-        </activity>
+            android:name=".a4Activity"
+            android:label="@string/title_activity_a4" />
         <activity
             android:name=".a5Activity"
-            android:label="@string/title_activity_a5">
-        </activity>
+            android:label="@string/title_activity_a5" />
         <activity
-                android:name=".a7Activity"
-                android:label="@string/title_activity_a7"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".a7Activity"
+            android:label="@string/title_activity_a7"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".a8Activity"
-                android:label="@string/title_activity_a8">
-        </activity>
+            android:name=".a8Activity"
+            android:label="@string/title_activity_a8" />
 
         <activity
             android:name=".a9Activity"
-            android:label="@string/title_activity_a9">
-        </activity>
+            android:label="@string/title_activity_a9" />
 
         <activity
             android:name=".a10Activity"
-            android:label="@string/title_activity_a10">
-        </activity>
+            android:label="@string/title_activity_a10" />
 
         <activity
             android:name=".a11Activity"
-            android:label="@string/title_activity_a11">
-        </activity>
+            android:label="@string/title_activity_a11" />
 
         <activity
             android:name=".a12Activity"
-            android:label="@string/title_activity_a12">
-        </activity>
+            android:label="@string/title_activity_a12" />
+
+        <activity
+            android:name=".a13Activity"
+            android:label="@string/title_activity_a13" />
     </application>
 
 </manifest>
