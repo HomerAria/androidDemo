@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.homeraria.hencodeuicourse.app.fragment.PageFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 

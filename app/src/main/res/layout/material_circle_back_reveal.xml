@@ -1,59 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.homeraria.hencodeuicourse.app.material.CircleBackRevealLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.homeraria.hencodeuicourse.app.material.CircleBackRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#111">
 
-        <io.codetail.widget.RevealFrameLayout
-            android:id="@+id/reveal_layout"
+    <io.codetail.widget.RevealFrameLayout
+        android:id="@+id/reveal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:background="#00935f"
+            android:visibility="visible" />
 
-            <View
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#222"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/anchorView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#00935f"
-                android:visibility="visible"/>
+                android:orientation="vertical" />
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/snack_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:src="@mipmap/warning"
+                app:backgroundTint="@android:color/darker_gray"
+                app:fabSize="normal"
+                app:layout_anchor="@id/anchorView"
+                app:layout_anchorGravity="bottom|right" />
 
-            <android.support.design.widget.CoordinatorLayout
-                android:id="@+id/parent"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:src="@mipmap/close"
+                app:backgroundTint="@android:color/darker_gray"
+                app:fabSize="normal"
+                app:layout_anchor="@id/anchorView"
+                app:layout_anchorGravity="bottom|left" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:src="@mipmap/next"
+                app:backgroundTint="@android:color/darker_gray"
+                app:fabSize="normal"
+                app:layout_anchor="@id/anchorView"
+                app:layout_anchorGravity="top|right" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:rotation="45"
+                android:src="@mipmap/close"
+                app:backgroundTint="@android:color/darker_gray"
+                app:fabSize="normal"
+                app:layout_anchor="@id/anchorView"
+                app:layout_anchorGravity="top|left" />
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </io.codetail.widget.RevealFrameLayout>
+
+    <io.codetail.widget.RevealFrameLayout
+        android:id="@+id/reveal_items_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/reveal_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:visibility="invisible"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                android:background="#222">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/anchorView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"/>
+                <ImageButton
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@mipmap/pill" />
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/snack_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:layout_anchor="@id/anchorView"
-                    app:layout_anchorGravity="bottom|right"
-                    app:backgroundTint="@android:color/darker_gray"
-                    android:src="@mipmap/warning"
-                    android:layout_margin="20dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Gallery" />
+            </LinearLayout>
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/exit"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:layout_anchor="@id/anchorView"
-                    app:layout_anchorGravity="bottom|left"
-                    android:src="@mipmap/close"
-                    app:backgroundTint="@android:color/darker_gray"
-                    android:layout_margin="20dp"/>
+            <!-- Other 2 icons here-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            </android.support.design.widget.CoordinatorLayout>
+                <ImageButton
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@mipmap/pill" />
 
-        </io.codetail.widget.RevealFrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Photo" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@mipmap/pill" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Folder" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </io.codetail.widget.RevealFrameLayout>
 </com.homeraria.hencodeuicourse.app.material.CircleBackRevealLayout>

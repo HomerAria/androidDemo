@@ -2,18 +2,23 @@ package com.homeraria.hencodeuicourse.app.material;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
+import android.content.ContextWrapper;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import com.homeraria.hencodeuicourse.app.R;
+import com.homeraria.hencodeuicourse.app.a13RevealActivity;
 
-import io.codetail.animation.ViewAnimationUtils;
 
 /**
  * @author sean
@@ -22,16 +27,29 @@ import io.codetail.animation.ViewAnimationUtils;
  * @date on 2018/11/22 20:02
  */
 public class CircleBackRevealLayout extends CircleRevealLayout {
+    private Context mContext;
+    private FloatingActionButton mStartButton;
+    private View mContainView;
+    private LinearLayout mRevealTitleView;
+//    private Animator mPopAnimator, mReverseAnimator;
+    private boolean isAnimating = false, isHidden = true;
+    int cx;
+    int cy;
+    int radius;
+
     public CircleBackRevealLayout(Context context) {
         super(context);
+        this.mContext = context;
     }
 
     public CircleBackRevealLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
     }
 
     public CircleBackRevealLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.mContext = context;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -42,7 +60,7 @@ public class CircleBackRevealLayout extends CircleRevealLayout {
         //重新定义点击事件
         for (int i = 0; i < mRevealLayout.getChildCount(); i++) {
             mRevealLayout.getChildAt(i).setOnTouchListener((view, event) -> {
-                if(view.getId() != R.id.parent){
+                if (view.getId() != R.id.parent) {
                     mDetector.onTouchEvent(event);
                 }
                 return true;
@@ -54,12 +72,117 @@ public class CircleBackRevealLayout extends CircleRevealLayout {
 //                nextView.bringToFront();
             mRevealLayout.bringChildToFront(nextView);
 
-            final float finalRadius = (float) Math.hypot(nextView.getWidth() / 2f, nextView.getHeight() / 2f) + hypo(nextView, (v.getRight() + v.getLeft())/2, (v.getTop()+v.getBottom())/2);
+            final float finalRadius = (float) Math.hypot(nextView.getWidth() / 2f, nextView.getHeight() / 2f) + hypo(nextView, (v.getRight() + v.getLeft()) / 2, (v.getTop() + v.getBottom()) / 2);
             Animator revealAnimator = ViewAnimationUtils.
-                    createCircularReveal(nextView, (v.getRight() + v.getLeft())/2, (v.getTop()+v.getBottom())/2, 0, finalRadius, View.LAYER_TYPE_HARDWARE);
+                    createCircularReveal(nextView, (v.getRight() + v.getLeft()) / 2, (v.getTop() + v.getBottom()) / 2, 0, finalRadius);
             revealAnimator.setDuration(1000);
             revealAnimator.setInterpolator(new FastOutLinearInInterpolator());
             revealAnimator.start();
         });
+
+        mRevealTitleView = findViewById(R.id.reveal_items);
+        mContainView = findViewById(R.id.reveal_layout);
+        mStartButton = findViewById(R.id.next);
+        mStartButton.setOnClickListener(v -> {
+            showNextFragment();
+        });
+        findViewById(R.id.add).setOnClickListener(v -> {
+            if(isAnimating) return;
+
+            /**
+             * 水波动画需要注意的几点：
+             * 1.执行动画的view需要有width&height，GONE状态下均为0，以后fragment或activity切换中尤其注意；
+             * 2.cx,cy,radius三个指标可以确定动画范围与出发点，出发点可以由点击位置决定；或者由点击来源view位置决定(view较小情况下)；
+             * 3.createCircularReveal()目标view的父控件必须是RevealLayout子类；
+             */
+            mRevealTitleView.setVisibility(VISIBLE);   //原先Visibility千万不能设置为GONE，这样获得的view尺寸都是0，需要这是为INVISIBLE才可以
+
+            //reveal动画需要的参数
+            cx = (v.getLeft() + v.getRight()) / 2;     //水波展开中心位置
+            cy = (v.getTop() + v.getBottom()) / 2;
+            radius = Math.max(mRevealTitleView.getWidth(), mRevealTitleView.getHeight());    //水波最大半径
+
+            Animator mPopAnimator = ViewAnimationUtils.createCircularReveal(mRevealTitleView, cx, cy, 0, radius);
+            mPopAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            mPopAnimator.setDuration(1000);
+            mPopAnimator.start();
+            mPopAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    isHidden  = false;
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+
+        });
+
+        findViewById(R.id.anchorView).setOnClickListener(v -> {
+            if (isAnimating && !isHidden) return;
+
+            Animator mReverseAnimator = ViewAnimationUtils.createCircularReveal(mRevealTitleView, cx, cy, radius, 0);
+            mReverseAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            mReverseAnimator.setDuration(1000);
+            mReverseAnimator.start();
+            mReverseAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    isAnimating = true;
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mRevealTitleView.setVisibility(INVISIBLE);
+                    isAnimating = false;
+                    isHidden = true;
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    mRevealTitleView.setVisibility(INVISIBLE);
+                    isAnimating = false;
+                    isHidden = true;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        });
+    }
+
+
+    private FragmentActivity getActivity() {
+        Context context = mContext;
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (FragmentActivity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
+    }
+
+    private void showNextFragment() {
+//        Fragment revealFragment = RevealFragment.newInstance(R.layout.base, (mStartButton.getLeft() + mStartButton.getRight()) / 2,
+//                (mStartButton.getTop() + mStartButton.getBottom()) / 2, mContainView.getWidth(), mContainView.getHeight());
+//        if (getActivity() != null)
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.reveal_layout, revealFragment).commit();
+        Intent intent = new Intent(mContext, a13RevealActivity.class);
+        mContext.startActivity(intent);
     }
 }

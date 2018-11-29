@@ -60,6 +60,10 @@
         <activity
             android:name=".a13Activity"
             android:label="@string/title_activity_a13" />
+
+        <activity
+            android:name=".a13RevealActivity"
+            android:label="@string/title_activity_a13" />
     </application>
 
 </manifest>
