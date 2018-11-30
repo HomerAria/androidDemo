@@ -20,22 +20,33 @@ import com.homeraria.hencodeuicourse.app.widget.ScreenShotInterface;
 
 /**
  * Created by Konstantin on 22.12.2014.
+ * 和ContentFragment一致，只是需要可以独立加载（static方法志辉产生一个实例）
  */
-public class ContentFragment extends Fragment implements ScreenShotInterface {
+public class ContentNextFragment extends Fragment implements ScreenShotInterface {
     private View containerView;
     private ImageView mImageView;
     protected int res;
     private Bitmap bitmap;
     private ActivityRevealListener mActivityListener;
 
-    public static ContentFragment newInstance(int resId) {
-        ContentFragment contentFragment = new ContentFragment();
+    public static ContentNextFragment newInstance(int resId) {
+        ContentNextFragment contentFragment = new ContentNextFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Integer.class.getName(), resId);
         contentFragment.setArguments(bundle);
         return contentFragment;
     }
 
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    /**
+     * 将Activity与fragment进行绑定
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -52,13 +63,6 @@ public class ContentFragment extends Fragment implements ScreenShotInterface {
         mActivityListener = null;
     }
 
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +72,7 @@ public class ContentFragment extends Fragment implements ScreenShotInterface {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_content, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_content_next, container, false);
         this.containerView = rootView.findViewById(R.id.container);
         mImageView = rootView.findViewById(R.id.image_content);
 //        mImageView.setClickable(true);
@@ -77,14 +81,13 @@ public class ContentFragment extends Fragment implements ScreenShotInterface {
         Log.v("ContentFragment", "res="+ res);
 //        mImageView.setOnTouchListener((v, event) -> {
 //            bitmap = takeScreenShotSync();
-//
 //            return true;
 //        });
+
         rootView.findViewById(R.id.change).setOnClickListener(v->{
             bitmap = takeScreenShotSync();
-            mActivityListener.onFragmentSwitch(v, ContentFragment.this);
+            mActivityListener.onFragmentSwitch(v, ContentNextFragment.this);
         });
-
 
         return rootView;
     }
@@ -94,11 +97,10 @@ public class ContentFragment extends Fragment implements ScreenShotInterface {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(),
-                        containerView.getHeight(), Bitmap.Config.ARGB_8888);
+                Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(), containerView.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 containerView.draw(canvas);
-                ContentFragment.this.bitmap = bitmap;
+                ContentNextFragment.this.bitmap = bitmap;
             }
         };
 
@@ -107,8 +109,7 @@ public class ContentFragment extends Fragment implements ScreenShotInterface {
     }
 
     private Bitmap takeScreenShotSync(){
-        Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(),
-                containerView.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(), containerView.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         containerView.draw(canvas);
         return bitmap;
