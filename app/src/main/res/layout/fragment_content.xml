@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#222">
 
     <FrameLayout
         android:id="@+id/container"
@@ -14,8 +15,8 @@
             android:id="@+id/image_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#222222"
-            android:scaleType="fitCenter" />
+            android:background="#cc333333"
+            android:scaleType="center" />
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:src="@mipmap/next_white"
-        app:backgroundTint="#00935f"
+        app:backgroundTint="#222"
         app:fabSize="normal"
         app:layout_anchor="@id/anchorView"
         android:layout_gravity="bottom|end" />

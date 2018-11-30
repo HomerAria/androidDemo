@@ -89,11 +89,11 @@ public class CircleBackRevealLayout extends CircleRevealLayout {
         findViewById(R.id.add).setOnClickListener(v -> {
             if(isAnimating) return;
 
-            /**
-             * 水波动画需要注意的几点：
-             * 1.执行动画的view需要有width&height，GONE状态下均为0，以后fragment或activity切换中尤其注意；
-             * 2.cx,cy,radius三个指标可以确定动画范围与出发点，出发点可以由点击位置决定；或者由点击来源view位置决定(view较小情况下)；
-             * 3.createCircularReveal()目标view的父控件必须是RevealLayout子类；
+            /*
+              水波动画需要注意的几点：
+              1.执行动画的view需要有width&height，GONE状态下均为0，以后fragment或activity切换中尤其注意；
+              2.cx,cy,radius三个指标可以确定动画范围与出发点，出发点可以由点击位置决定；或者由点击来源view位置决定(view较小情况下)；
+              3.createCircularReveal()目标view的父控件必须是RevealLayout子类；
              */
             mRevealTitleView.setVisibility(VISIBLE);   //原先Visibility千万不能设置为GONE，这样获得的view尺寸都是0，需要这是为INVISIBLE才可以
 
@@ -133,6 +133,9 @@ public class CircleBackRevealLayout extends CircleRevealLayout {
         findViewById(R.id.anchorView).setOnClickListener(v -> {
             if (isAnimating && !isHidden) return;
 
+            /*
+                通过配置startRadius和endRadius，实现水波收缩效果（与水波扩散反向）
+             */
             Animator mReverseAnimator = ViewAnimationUtils.createCircularReveal(mRevealTitleView, cx, cy, radius, 0);
             mReverseAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
             mReverseAnimator.setDuration(1000);
