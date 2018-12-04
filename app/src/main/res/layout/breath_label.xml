@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reveal_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true">
+
+    <com.homeraria.hencodeuicourse.app.phenas.button.BreathView
+        android:id="@+id/target"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="left|center_vertical" />
+
+    <TextView
+        android:id="@+id/target_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/background_green"
+        android:gravity="center"
+        android:paddingStart="15dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="2dp"
+        android:text="大佬你好"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:visibility="invisible" />
+
+</io.codetail.widget.RevealFrameLayout>

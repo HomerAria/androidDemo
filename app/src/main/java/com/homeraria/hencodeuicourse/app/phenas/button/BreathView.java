@@ -1,33 +1,34 @@
 package com.homeraria.hencodeuicourse.app.phenas.button;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 
+import com.homeraria.hencodeuicourse.app.R;
 import com.homeraria.hencodeuicourse.app.phenas.widget.BreathInterpolator;
 
 /**
  * Phenas呼吸效果
  */
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class BreathView extends View {
-
-    public final float SMOOTH_SAMPLE_NUMBER = 20f, MIN_RADIUS = 100f;
+    public final float SOLID_SPREAD_RATIO = 2f;    //外部半透明弥散最大半径和中心实心圆半径之比
+    public final float SMOOTH_SAMPLE_NUMBER = 20f;
     private final int SEMI_ALPHA = 200;
-    private final int COLOR = Color.parseColor("#00ce9b");
+    private final int COLOR = getResources().getColor(R.color.colorPrimary, null);
 
-    public float MAX_RADIUS = 200f;
+    public float MAX_RADIUS = 200f, MIN_RADIUS = MAX_RADIUS / SOLID_SPREAD_RATIO;    //默认值
 
     private Paint mPaint = new Paint();
 //    private ObjectAnimator animator, animator1;
@@ -38,12 +39,9 @@ public class BreathView extends View {
     private float radius;
     private boolean isBreathing = true;
 
-    public BreathView(Context context) {
-        this(context, null);
-    }
-
     /**
      * 会不断被ValueAnimator调用，需要放置mRadius被重复调用,new Paint()不能再这里执行
+     *
      * @param degreeY
      */
     @Keep
@@ -51,15 +49,19 @@ public class BreathView extends View {
         MAX_RADIUS = degreeY;
 //        if(mPaint == null) {
 //            mPaint = new Paint();
-            mPaint.setColor(COLOR);
-            mPaint.setStrokeWidth((MAX_RADIUS - MIN_RADIUS) / SMOOTH_SAMPLE_NUMBER);
-            mPaint.setAntiAlias(true);
-            mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setColor(COLOR);
+        mPaint.setStrokeWidth((MAX_RADIUS - MIN_RADIUS) / SMOOTH_SAMPLE_NUMBER);
+        mPaint.setAntiAlias(true);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 //        }
 
         alpha = SEMI_ALPHA;
         radius = MIN_RADIUS;
         invalidate();
+    }
+
+    public BreathView(Context context) {
+        this(context, null);
     }
 
     /**
@@ -76,22 +78,18 @@ public class BreathView extends View {
         super(context, attrs, defStyleAttr);
 
         mPaint = new Paint();
-        mPaint.setColor(Color.parseColor("#00935f"));
+        mPaint.setColor(COLOR);
         mPaint.setStrokeWidth((MAX_RADIUS - MIN_RADIUS) / SMOOTH_SAMPLE_NUMBER);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-
-        alpha = SEMI_ALPHA;
-        radius = MIN_RADIUS;
-        startAnim();
     }
 
     public void startAnim() {
 //        if (animator == null) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "radius", 100f, 200f);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "radius", MIN_RADIUS, MAX_RADIUS);
         animator.setInterpolator(new BreathInterpolator());
-        animator.setDuration(3000);
-            animator.setRepeatCount(Animation.INFINITE);
+        animator.setDuration(1000);
+        animator.setRepeatCount(Animation.INFINITE);
 //            animator.setRepeatMode(ValueAnimator.REVERSE);
 //        }
 //        if (animator1 == null) {
@@ -114,6 +112,16 @@ public class BreathView extends View {
 
         mCenterX = w / 2;
         mCenterY = h / 2;
+
+        MAX_RADIUS = Math.min(h, w) / 2f;
+        MIN_RADIUS = MAX_RADIUS / SOLID_SPREAD_RATIO;
+        Log.v(BreathView.class.getSimpleName(), "h=" + h + ", w=" + w);
+
+        //动态适应宽高，确定尺寸后开始执行动画
+        radius = MIN_RADIUS;
+        alpha = SEMI_ALPHA;
+        startAnim();
+
     }
 
     /**

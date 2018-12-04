@@ -1,11 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.homeraria.hencodeuicourse.app.material.BreathLabelLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222">
 
-    <
+    <io.codetail.widget.RevealFrameLayout
+        android:id="@+id/reveal_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
+        <com.homeraria.hencodeuicourse.app.phenas.button.BreathView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center" />
 
-</RelativeLayout>
+        <TextView
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/background_green"
+            android:textColor="@android:color/white"
+            android:text="大佬你好"
+            android:gravity="center"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:textSize="20sp"/>
+
+    </io.codetail.widget.RevealFrameLayout>
+
+    <io.codetail.widget.RevealFrameLayout
+        android:id="@+id/reveal_layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true">
+
+        <com.homeraria.hencodeuicourse.app.phenas.button.BreathView
+            android:id="@+id/target"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left|center_vertical" />
+
+        <TextView
+            android:id="@+id/target_text"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/background_green"
+            android:textColor="@android:color/white"
+            android:text="大佬你好"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:layout_marginStart="30dp"
+            android:textSize="15sp"/>
+
+    </io.codetail.widget.RevealFrameLayout>
+
+    <com.homeraria.hencodeuicourse.app.material.BreathLabel
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp">
+
+    </com.homeraria.hencodeuicourse.app.material.BreathLabel>
+
+    <RelativeLayout
+        android:id="@+id/free_layout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="5dp"
+        android:layout_alignParentBottom="true"
+        android:background="#444"/>
+
+</com.homeraria.hencodeuicourse.app.material.BreathLabelLayout>
