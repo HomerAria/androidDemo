@@ -1,10 +1,13 @@
 package com.homeraria.hencodeuicourse.app;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +16,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+/**
+ * 在不做多余设置情况下，使用Activity则不会显示顶部ActionBar，而用AppCompatActivity则会显示ActionBar；
+ * 默认ActionBar只会显示ActivityName，需要只用AppCompatActivity默认的一些函数，添加功能；
+ */
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     public ListView mContentListView;
 
     private Context mContext;
@@ -48,8 +55,46 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
         mContentListView.setOnItemClickListener(this);
+
+        if (getSupportActionBar() == null) return;
+//        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * 使用带有额外按钮的appBar
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
+     * appBar上的按钮被点击后的回调，用于增加点击事件
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                Snackbar.make(mContentListView, "location...", Snackbar.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_favorite:
+                Snackbar.make(mContentListView, "favorite", Snackbar.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_settings:
+                Snackbar.make(mContentListView, "setting!", Snackbar.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

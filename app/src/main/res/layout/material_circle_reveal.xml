@@ -5,11 +5,15 @@
     android:layout_height="match_parent"
     android:background="#222222">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="50dp"
+        >
         <io.codetail.widget.RevealFrameLayout
             android:id="@+id/reveal_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="50dp">
+            android:layout_height="match_parent">
 
             <View
                 android:layout_width="match_parent"
@@ -45,5 +49,8 @@
             </FrameLayout>
 
         </io.codetail.widget.RevealFrameLayout>
+
+
+    </RelativeLayout>
 
 </com.homeraria.hencodeuicourse.app.material.CircleRevealLayout>
