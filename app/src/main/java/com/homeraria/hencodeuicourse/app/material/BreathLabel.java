@@ -8,13 +8,16 @@ import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.homeraria.hencodeuicourse.app.R;
+import com.homeraria.hencodeuicourse.app.Utils;
 
 import io.codetail.widget.RevealFrameLayout;
 
@@ -28,10 +31,32 @@ public class BreathLabel extends RevealFrameLayout {
     private final static int BREATH_PERIOD = 500;
     private int mPositionX, mPositionY;
     private RevealFrameLayout mRootView;
+    private ViewGroup mParentView;
+    private Point marginPoint;
+    private boolean isInitial = true;
 
     public BreathLabel add2Parent (RelativeLayout parentView, int x, int y){
         Log.v(BreathLabel.class.getSimpleName(), "width:" + parentView.getWidth());
-        parentView.addView(this, getPositionParam(x, y));
+        this.mParentView = parentView;
+        mParentView.addView(this, getPositionParam(x, y));
+        return this;
+    }
+
+    public BreathLabel moveTo(int x, int y){
+        if(mParentView == null) return this;
+
+        try {
+            mParentView.addView(this, getPositionParam(x, y));
+        } catch (IllegalStateException e){
+            mParentView.removeView(this);
+            mParentView.addView(this, getPositionParam(x, y));
+        }
+        return this;
+    }
+
+    public BreathLabel liftUp(float liftZ){
+        findViewById(R.id.target_bg).setElevation(liftZ);
+        findViewById(R.id.target_text).setElevation(liftZ);
         return this;
     }
 
@@ -42,6 +67,7 @@ public class BreathLabel extends RevealFrameLayout {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.leftMargin = x;
         params.topMargin = y;
+        marginPoint = new Point(x, y);
         return params;
     }
 
@@ -80,7 +106,16 @@ public class BreathLabel extends RevealFrameLayout {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
+        if(!isInitial) return;
+
         Log.v(BreathLabel.class.getSimpleName(), "child left:" + this.getLeft() + ", parent:" + ((View)this.getParent()).getWidth());
+        if(marginPoint != null) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
+            params.leftMargin = marginPoint.x;
+            params.topMargin = marginPoint.y;
+            this.setLayoutParams(params);
+        }
+
         new Handler().postDelayed(()->{
             View currentView = mRootView.findViewById(R.id.target);
             View nextView = mRootView.findViewById(R.id.target_text);
@@ -100,7 +135,18 @@ public class BreathLabel extends RevealFrameLayout {
                  */
                 Log.e(BreathLabelLayout.class.getSimpleName(), "Error: " + e.getMessage());
             }
+            isInitial = false;
 
         }, BREATH_PERIOD);
+    }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
+    }
+
+    @Override
+    public boolean onDragEvent(DragEvent event) {
+        return super.onDragEvent(event);
     }
 }

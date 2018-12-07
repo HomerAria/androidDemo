@@ -38,6 +38,11 @@ public class BreathView extends View {
     private int alpha;
     private float radius;
     private boolean isBreathing = true;
+    private OnClickListener mOnClickListener;
+
+    public void setmOnClickListener(OnClickListener mOnClickListener) {
+        this.mOnClickListener = mOnClickListener;
+    }
 
     /**
      * 会不断被ValueAnimator调用，需要放置mRadius被重复调用,new Paint()不能再这里执行
@@ -136,7 +141,7 @@ public class BreathView extends View {
 
         //使画面无效，从而系统才会重新调用view的onDraw()
 //        invalidate();
-        return true;
+        return false;
     }
 
     @Override
