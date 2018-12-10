@@ -6,28 +6,25 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.homeraria.hencodeuicourse.app.R;
-import com.homeraria.hencodeuicourse.app.Utils;
 
 import io.codetail.widget.RevealFrameLayout;
 
 /**
  * @author sean
- * @describe 结合了呼吸圆点和标签，包含动画
+ * @describe 标签的位置可以根据圆点在屏幕中的位置，可以自适应位于左侧或者右侧
  * @email sean.zhou@oppo.com
  * @date on 2018/12/4 16:51
  */
-public class BreathLabel extends RevealFrameLayout {
+public class AdaptiveBreathLabel extends RevealFrameLayout {
     private final static int BREATH_PERIOD = 500;
     private int mPositionX, mPositionY;
     private RevealFrameLayout mRootView;
@@ -35,14 +32,14 @@ public class BreathLabel extends RevealFrameLayout {
     private Point marginPoint;
     private boolean isInitial = true;
 
-    public BreathLabel add2Parent (RelativeLayout parentView, int x, int y){
-        Log.v(BreathLabel.class.getSimpleName(), "width:" + parentView.getWidth());
+    public AdaptiveBreathLabel add2Parent (RelativeLayout parentView, int x, int y){
+        Log.v(AdaptiveBreathLabel.class.getSimpleName(), "width:" + parentView.getWidth());
         this.mParentView = parentView;
         mParentView.addView(this, getPositionParam(x, y));
         return this;
     }
 
-    public BreathLabel moveTo(int x, int y){
+    public AdaptiveBreathLabel moveTo(int x, int y){
         if(mParentView == null) return this;
 
         try {
@@ -51,12 +48,6 @@ public class BreathLabel extends RevealFrameLayout {
             mParentView.removeView(this);
             mParentView.addView(this, getPositionParam(x, y));
         }
-        return this;
-    }
-
-    public BreathLabel liftUp(float liftZ){
-        findViewById(R.id.target_bg).setElevation(liftZ);
-        findViewById(R.id.target_text).setElevation(liftZ);
         return this;
     }
 
@@ -71,7 +62,7 @@ public class BreathLabel extends RevealFrameLayout {
         return params;
     }
 
-    public BreathLabel setLabel(String label){
+    public AdaptiveBreathLabel setLabel(String label){
         ((TextView)mRootView.findViewById(R.id.target_text)).setText(label);
         return this;
     }
@@ -80,17 +71,17 @@ public class BreathLabel extends RevealFrameLayout {
         return (String) ((TextView)mRootView.findViewById(R.id.target_text)).getText();
     }
 
-    public BreathLabel(Context context) {
+    public AdaptiveBreathLabel(Context context) {
         this(context, null);
     }
 
-    public BreathLabel(Context context, AttributeSet attrs) {
+    public AdaptiveBreathLabel(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BreathLabel(Context context, AttributeSet attrs, int defStyle) {
+    public AdaptiveBreathLabel(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mRootView = (RevealFrameLayout) inflate(context, R.layout.breath_label, this);
+        mRootView = (RevealFrameLayout) inflate(context, R.layout.breath_label_adaptive, this);
     }
 
     @Override
@@ -108,14 +99,14 @@ public class BreathLabel extends RevealFrameLayout {
 
         if(!isInitial) return;
 
-        Log.v(BreathLabel.class.getSimpleName(), "child left:" + this.getLeft() + ", parent:" + ((View)this.getParent()).getWidth());
+        Log.v(AdaptiveBreathLabel.class.getSimpleName(), "child left:" + this.getLeft() + ", parent:" + ((View)this.getParent()).getWidth());
 //        if(marginPoint != null) {
 //            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
 //            params.leftMargin = marginPoint.x;
 //            params.topMargin = marginPoint.y;
 //            this.setLayoutParams(params);
 //        }
-
+        //动态分配内部控件位置
 
         new Handler().postDelayed(()->{
             View currentView = mRootView.findViewById(R.id.target);
