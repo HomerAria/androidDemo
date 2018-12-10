@@ -118,7 +118,7 @@ public class BreathLabelLayout extends RelativeLayout {
 
         }, BREATH_PERIOD);
 
-        BreathLabel label = new BreathLabel(getContext());
+        AdaptiveBreathLabel label = new AdaptiveBreathLabel(getContext());
         label.setTag(BREATH_LABEL_TAG);
         String labelText = label.add2Parent(mFreeLand, 100, 200).setLabel("动态LABEL").getLabel();
 
@@ -126,7 +126,7 @@ public class BreathLabelLayout extends RelativeLayout {
 //        mFreeLand.addView(label, label.getPositionParam(100, 100));
 
         label.setOnTouchListener((v, event) -> {
-            if(event.getAction() == MotionEvent.ACTION_DOWN){
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 //这里的位置的参考坐标系是v，所以位置是相对v左上角的相对位置
                 mTouchOffset = new PointF(event.getX(), event.getY());
             }
@@ -174,7 +174,7 @@ public class BreathLabelLayout extends RelativeLayout {
                         /*
                         不能在这里处理拖拽结束显示View的操作，因为这是event传回的坐标都是原点坐标
                          */
-                        if(isLeaving)
+                        if (isLeaving)
                             label.setVisibility(VISIBLE);
 //                            label.moveTo((int) (lastPosition.x -mTouchOffset.x), (int)(lastPosition.y));
                         Log.i(TAG, "结束拖拽位置:x =" + x + ",y=" + y);
@@ -195,7 +195,7 @@ public class BreathLabelLayout extends RelativeLayout {
                         break;
                     case DragEvent.ACTION_DROP:
                         Log.i(TAG, "释放拖拽的view位置:x =" + x + ",y=" + y);
-                        label.moveTo((int) (event.getX()-mTouchOffset.x), (int)( event.getY()-mTouchOffset.y));
+                        label.moveTo((int) (event.getX() - mTouchOffset.x), (int) (event.getY() - mTouchOffset.y));
                         label.setVisibility(VISIBLE);
                         break;
                 }
@@ -203,6 +203,9 @@ public class BreathLabelLayout extends RelativeLayout {
                 return true;
             }
         });
+
+        //再添加一个BreathLabelAdaptive
+        new AdaptiveBreathLabel(getContext()).setLabel("自适应Label").add2Parent(mFreeLand, 900, 400);
 
     }
 
@@ -249,7 +252,7 @@ public class BreathLabelLayout extends RelativeLayout {
             //设置宽度和高度
             size.set(width, height);
             //设置手指在拖动阴影图案的位置
-            touch.set((int)mTouchOffset.x, (int)mTouchOffset.y + 5);
+            touch.set((int) mTouchOffset.x, (int) mTouchOffset.y + 5);
 
             Log.v(TAG, "被拖动View位置：x=" + getView().getLeft() + ", y=" + getView().getTop() + ", 手指位置：x=" + touch.x + ", y=" + touch.y);
 
@@ -276,6 +279,16 @@ public class BreathLabelLayout extends RelativeLayout {
                         new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()),
                         new Rect(0, 0, width, height), null);
 
+            }else if(getView() instanceof AdaptiveBreathLabel){
+                AdaptiveBreathLabel view = (AdaptiveBreathLabel) getView();
+                Bitmap bitmap = loadBitmapFromViewBySystem(view);
+                newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                //Canvas与Bitmap关联
+                Canvas canvas = new Canvas(newBitmap);
+                //将原图绘制在画布上(图像尺寸放大50%)。这里的画布只是与newBitmap绑定的 完全独立的，现在还没有正式将图像绘制在拖动阴影图像上。实际上是将bitmap放大50%，然后绘制在newBitmap上
+                canvas.drawBitmap(bitmap,
+                        new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()),
+                        new Rect(0, 0, width, height), null);
             }
         }
 

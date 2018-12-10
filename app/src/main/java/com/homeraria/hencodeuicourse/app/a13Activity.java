@@ -33,6 +33,7 @@ public class a13Activity extends FragmentActivity {
         mPageModelList.add(new a13Activity.PageModel("循环展开", R.layout.material_circle_reveal));
         mPageModelList.add(new a13Activity.PageModel("展开返回", R.layout.material_circle_back_reveal));
         mPageModelList.add(new a13Activity.PageModel("标签展开拖放", R.layout.material_circle_label));
+        mPageModelList.add(new a13Activity.PageModel("人脸追踪", R.layout.material_circle_label));
     }
 
     @Override
