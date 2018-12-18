@@ -2,12 +2,15 @@ package com.homeraria.hencodeuicourse.app;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
+import com.homeraria.hencodeuicourse.app.camera.PermissionListener;
 import com.homeraria.hencodeuicourse.app.fragment.ContentFragment;
 import com.homeraria.hencodeuicourse.app.fragment.PageFragment;
 
@@ -26,6 +29,12 @@ public class a13Activity extends FragmentActivity {
     ContentFragment mExtraFragment;
     ContentFragment.OnSwitchListener mSwitchListener;
 
+    public void setmPermissionListener(PermissionListener mPermissionListener) {
+        this.mPermissionListener = mPermissionListener;
+    }
+
+    PermissionListener mPermissionListener;
+
     //保存每个page的信息
     List<a13Activity.PageModel> mPageModelList = new ArrayList<>();
 
@@ -33,7 +42,7 @@ public class a13Activity extends FragmentActivity {
         mPageModelList.add(new a13Activity.PageModel("循环展开", R.layout.material_circle_reveal));
         mPageModelList.add(new a13Activity.PageModel("展开返回", R.layout.material_circle_back_reveal));
         mPageModelList.add(new a13Activity.PageModel("标签展开拖放", R.layout.material_circle_label));
-        mPageModelList.add(new a13Activity.PageModel("人脸追踪", R.layout.material_circle_label));
+        mPageModelList.add(new a13Activity.PageModel("人脸追踪", R.layout.face_track_layout));
     }
 
     @Override
@@ -83,4 +92,19 @@ public class a13Activity extends FragmentActivity {
             this.practiceLayoutRes = practiceLayoutRes;
         }
     }
+
+    /**
+     * 因为在FaceTrackLayout中请求权限的是Activity，所以这里也是在Activity中得到接受请求的回调
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.v(PageFragment.class.getSimpleName(), permissions[0] + "");
+        mPermissionListener.onGetPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
 }

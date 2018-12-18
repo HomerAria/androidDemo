@@ -205,7 +205,7 @@ public class BreathLabelLayout extends RelativeLayout {
         });
 
         //再添加一个BreathLabelAdaptive
-        new AdaptiveBreathLabel(getContext()).setLabel("自适应Label").add2Parent(mFreeLand, 900, 400);
+//        new AdaptiveBreathLabel(getContext()).setLabel("自适应Label").add2Parent(mFreeLand, 900, 400);
 
     }
 

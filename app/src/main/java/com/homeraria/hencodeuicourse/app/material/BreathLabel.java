@@ -37,8 +37,12 @@ public class BreathLabel extends RevealFrameLayout {
 
     public BreathLabel add2Parent (RelativeLayout parentView, int x, int y){
         Log.v(BreathLabel.class.getSimpleName(), "width:" + parentView.getWidth());
-        this.mParentView = parentView;
-        mParentView.addView(this, getPositionParam(x, y));
+        if(this.mParentView ==null) {
+            this.mParentView = parentView;
+            mParentView.addView(this, getPositionParam(x, y));
+        }else{
+            moveTo(x, y);
+        }
         return this;
     }
 

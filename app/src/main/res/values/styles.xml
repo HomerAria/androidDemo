@@ -5,6 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--打开应用loading时的背景显示-->
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
 

@@ -11,9 +11,11 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.L;
 import com.homeraria.hencodeuicourse.app.R;
 
 import io.codetail.widget.RevealLinearLayout;
@@ -112,14 +114,27 @@ public class AdaptiveBreathLabel extends RevealLinearLayout {
         int parentWidth = ((View) mRootView.getParent()).getMeasuredWidth();
         if (breathRightX == parentWidth) {
             isLeft = true;     //右侧控件不足以显示右侧的Label
+
             //需要重新配置整个RootView的位置
-//            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
+            int textLength = findViewById(R.id.target_text_left).getMeasuredWidth();
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
+//            params.rightMargin = -textLength;
+            params.leftMargin = params.leftMargin - textLength;
+            mRootView.setLayoutParams(params);
+            findViewById(R.id.target_text).setVisibility(INVISIBLE);
+//            mRootView.layout(mRootView.getLeft() - textLength, mRootView.getTop(), mRootView.getRight() - textLength, mRootView.getBottom());
 //            params.leftMargin = params.leftMargin -;
 //            params.topMargin = marginPoint.y;
 //            this.setLayoutParams(params);
+            isInitial = false;
         } else {
             isLeft = false;
-            findViewById(R.id.target_text_left).setVisibility(GONE);
+            int textLength = findViewById(R.id.target_text_left).getMeasuredWidth();
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
+            params.leftMargin = params.leftMargin - textLength;
+            mRootView.setLayoutParams(params);
+            findViewById(R.id.target_text_left).setVisibility(INVISIBLE);
+            isInitial = false;
         }
 
         if (isLeft) {
@@ -132,7 +147,7 @@ public class AdaptiveBreathLabel extends RevealLinearLayout {
 
                 try {
                     Animator revealAnimator = ViewAnimationUtils.
-                            createCircularReveal(nextView, ((View) target.getParent()).getLeft(),
+                            createCircularReveal(nextView, nextView.getRight(),
                                     nextView.getHeight() / 2, 0, nextView.getWidth());
                     revealAnimator.setDuration(1000);
                     revealAnimator.setInterpolator(new FastOutLinearInInterpolator());

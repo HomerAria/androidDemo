@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.homeraria.hencodeuicourse.app">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/pill"
@@ -62,7 +66,11 @@
 
         <activity
             android:name=".a13RevealActivity"
-            android:label="@string/title_activity_a13" />
+            android:label="@string/title_activity_a13b" />
+
+        <activity
+            android:name=".a14Activity"
+            android:label="@string/title_activity_a14" />
     </application>
 
 </manifest>
