@@ -14,13 +14,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.homeraria.hencodeuicourse.app"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -39,14 +39,24 @@ android {
 
 dependencies {
     //支持tabLayout
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'      //material design支持包
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+//    implementation 'com.android.support:support-v4:28.0.0'
+//    implementation 'com.android.support:cardview-v7:28.0.0'
+//    implementation 'com.android.support:design:28.0.0'      //material design支持包
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true
     }
     implementation 'com.google.android.gms:play-services-vision:17.0.2'    //google人脸检测
+
+    implementation "com.mikepenz:materialdrawer:6.1.2"     //侧边滑出栏
+
+    //with androidx
+    implementation 'androidx.core:core:1.0.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    //required support lib modules for materiladrawer
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'    //MD支持包，TabLayout等类需要修改import包名
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.homeraria.hencodeuicourse.app.R;
-import com.homeraria.hencodeuicourse.app.view.echarts.utils.EchartsDataBean;
 
 public class CandleRelativeLayout extends RelativeLayout implements View.OnClickListener {
 //    private Context mContext;

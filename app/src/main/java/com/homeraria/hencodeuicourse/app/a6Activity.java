@@ -1,17 +1,18 @@
 package com.homeraria.hencodeuicourse.app;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.homeraria.hencodeuicourse.app.fragment.PageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.LayoutRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class a6Activity extends FragmentActivity
 {

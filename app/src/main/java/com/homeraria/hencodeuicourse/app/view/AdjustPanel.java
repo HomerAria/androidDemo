@@ -1,13 +1,15 @@
 package com.homeraria.hencodeuicourse.app.view;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+
 import com.homeraria.hencodeuicourse.app.R;
 import com.homeraria.hencodeuicourse.app.Utils;
+
+import androidx.appcompat.widget.AppCompatSeekBar;
 
 /**
  * 用作SquareImageView的外框，用于尺寸修改

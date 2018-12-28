@@ -6,18 +6,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.homeraria.hencodeuicourse.app.R;
 import com.homeraria.hencodeuicourse.app.a13RevealActivity;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 
 /**

@@ -5,7 +5,7 @@ import android.animation.PointFEvaluator;
 import android.animation.TypeEvaluator;
 import android.content.Context;
 import android.graphics.PointF;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.RelativeLayout;

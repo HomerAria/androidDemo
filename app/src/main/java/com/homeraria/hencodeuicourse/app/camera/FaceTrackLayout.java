@@ -7,9 +7,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -22,10 +19,14 @@ import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+import com.google.android.material.snackbar.Snackbar;
 import com.homeraria.hencodeuicourse.app.R;
 import com.homeraria.hencodeuicourse.app.a13Activity;
 
 import java.io.IOException;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 /**
  * @author sean

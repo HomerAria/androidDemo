@@ -3,8 +3,6 @@ package com.homeraria.hencodeuicourse.app.material;
 import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Point;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -13,6 +11,8 @@ import android.view.View;
 
 import com.homeraria.hencodeuicourse.app.R;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.widget.RevealFrameLayout;
 

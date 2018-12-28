@@ -4,20 +4,17 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Handler;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.homeraria.hencodeuicourse.app.R;
-import com.homeraria.hencodeuicourse.app.Utils;
 
 import io.codetail.widget.RevealFrameLayout;
 

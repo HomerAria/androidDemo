@@ -4,18 +4,16 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Handler;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.L;
 import com.homeraria.hencodeuicourse.app.R;
 
 import io.codetail.widget.RevealLinearLayout;

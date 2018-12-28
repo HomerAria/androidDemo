@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Outline;
 import android.graphics.Path;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.homeraria.hencodeuicourse.app.R;
-import com.homeraria.hencodeuicourse.app.Utils;
 
 import static com.homeraria.hencodeuicourse.app.Utils.dpToPixel;
 

@@ -1,6 +1,6 @@
 package com.homeraria.hencodeuicourse.app.camera;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * @author sean
