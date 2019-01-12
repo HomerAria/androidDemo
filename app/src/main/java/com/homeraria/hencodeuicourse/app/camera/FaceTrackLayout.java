@@ -109,8 +109,8 @@ public class FaceTrackLayout extends RelativeLayout {
     private void createCameraSource() {
 
         Context context = mContext;
-        FaceDetector detector = new FaceDetector.Builder(context)
-                .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
+        com.google.android.gms.vision.face.FaceDetector detector = new com.google.android.gms.vision.face.FaceDetector.Builder(context)
+                .setClassificationType(com.google.android.gms.vision.face.FaceDetector.ALL_CLASSIFICATIONS)
                 .build();
 
         detector.setProcessor(new MultiProcessor.Builder<>(new GraphicFaceTrackerFactory()).build());
@@ -261,7 +261,7 @@ public class FaceTrackLayout extends RelativeLayout {
          * Update the position/characteristics of the face within the overlay.
          */
         @Override
-        public void onUpdate(FaceDetector.Detections<Face> detectionResults, Face face) {
+        public void onUpdate(com.google.android.gms.vision.face.FaceDetector.Detections<Face> detectionResults, Face face) {
             mOverlay.add(mFaceGraphic);
             mFaceGraphic.updateFace(face);
 
@@ -276,7 +276,7 @@ public class FaceTrackLayout extends RelativeLayout {
          * view).
          */
         @Override
-        public void onMissing(FaceDetector.Detections<Face> detectionResults) {
+        public void onMissing(com.google.android.gms.vision.face.FaceDetector.Detections<Face> detectionResults) {
             mOverlay.remove(mFaceGraphic);
             Log.v(FaceTrackLayout.class.getSimpleName(), "onMissing, id=" + mFaceGraphic.getId());
         }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 /**
  * 在不做多余设置情况下，使用Activity则不会显示顶部ActionBar，而用AppCompatActivity则会显示ActionBar；
@@ -24,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     public ListView mContentListView;
+    private Toolbar mToolBar;
 
     private Context mContext;
 
@@ -33,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         initViews();
+
+        //如果需要侧拉抽屉直通到顶部，需要把状态栏也变成透明状态
+        WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
     }
 
     private void initViews() {
@@ -59,9 +66,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mContentListView.setAdapter(adapter);
         mContentListView.setOnItemClickListener(this);
 
+        mToolBar = findViewById(R.id.tool_bar);
+        if(mToolBar != null){
+            setSupportActionBar(mToolBar);
+        }
+
         if (getSupportActionBar() == null) return;
 //        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
     }
 
     /**

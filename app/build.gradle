@@ -14,15 +14,15 @@ repositories {
 }
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
 
     defaultConfig {
         applicationId "com.homeraria.hencodeuicourse.app"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode release.versionCode
+        versionName release.versionName
     }
 
     compileOptions {
@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+//    implementation project(':drawer_library')
+
     //支持tabLayout
 //    implementation 'com.android.support:support-v4:28.0.0'
 //    implementation 'com.android.support:cardview-v7:28.0.0'
@@ -56,7 +58,7 @@ dependencies {
     implementation 'androidx.core:core:1.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     //required support lib modules for materiladrawer
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'    //MD支持包，TabLayout等类需要修改import包名
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

@@ -8,7 +8,7 @@
         android:orientation="vertical"
         tools:context="com.homeraria.hencodeuicourse.app.a7Activity">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
