@@ -33,6 +33,7 @@ public class a12Activity extends FragmentActivity
         mPageModelList.add(new a12Activity.PageModel("粒子直线View", R.layout.phenas_particle_stright2));
         mPageModelList.add(new a12Activity.PageModel("粒子反弹View", R.layout.phenas_particle_debounce));
         mPageModelList.add(new a12Activity.PageModel("粒子容器控制", R.layout.phenas_particle_stright3));
+        mPageModelList.add(new a12Activity.PageModel("打字效果", R.layout.farmland_type_text));
     }
 
     @Override
