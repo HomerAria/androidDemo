@@ -39,6 +39,7 @@ package com.homeraria.hencodeuicourse.app.farmland;
 
 import android.content.Context;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -75,7 +76,7 @@ public class TypeTextLayout extends RelativeLayout {
     public TypeTextLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mData.add(new RectF(100, 100, 300, 300));
+//        mData.add(new RectF(100, 100, 300, 300));
         mData.add(new RectF(300, 300, 900, 1300));
         initViews();
     }
@@ -133,7 +134,13 @@ public class TypeTextLayout extends RelativeLayout {
 //            removeAllViews();
             for (int i = 0; i < mData.size(); i++) {
                 RectF rectF = mData.get(i);
-                LineLayout.addToParent(getContext(), this, rectF);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        LineLayout.addToParent(getContext(), TypeTextLayout.this, rectF);
+                    }
+                }, 500);
 
 //                RectLayout rectLayout = new RectLayout(getContext());
 //                LineLayout view = new LineLayout(getContext());
@@ -151,9 +158,18 @@ public class TypeTextLayout extends RelativeLayout {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        Log.v("sean2", "TypeTextLayout.omMeasure()");
+    }
+
+    @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
-        if (changed) return;
+//        super.onLayout(changed, l, t, r, b);
+//        if (!changed) return;
+
+        Log.v("sean2", "TypeTextLayout.onLayout()");
 
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
@@ -183,15 +199,23 @@ public class TypeTextLayout extends RelativeLayout {
                 child.setPivotY(0f);
             } else if (child instanceof LineLayout) {
                 RectF rect = mData.get(i);
-                int right = (int) (rect.left + child.getMeasuredWidth());
-                int bottom = (int) (rect.top + child.getMeasuredHeight());
-                child.layout((int) rect.left, (int) rect.top, right, bottom);
 
-                float scale = (rect.right - rect.left) / child.getMeasuredWidth();
-                child.setScaleX(scale);
-                child.setScaleY(scale);
+                float width = rect.right - rect.left;
+                float height = rect.bottom - rect.top;
+                float scale = LinePopView.UNDERLINE_LENGTH / width;
+
+                int right = (int) (rect.left + (int) (1.5f * LinePopView.UNDERLINE_LENGTH));
+                int bottom = (int) (rect.top + (int) (scale * height / 0.5f));
+
+                float scale1 = (rect.right - rect.left) / child.getMeasuredWidth();
+                child.setScaleX(scale1);
+                child.setScaleY(scale1);
                 child.setPivotX(0f);
                 child.setPivotY(0f);
+
+                Log.v("sean2", "TypeTextLayout.onLayout(), " + "left:" + rect.left);
+
+                child.layout((int) rect.left, (int) rect.top, right, bottom);
             }
         }
     }

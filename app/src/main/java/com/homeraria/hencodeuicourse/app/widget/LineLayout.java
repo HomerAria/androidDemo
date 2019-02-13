@@ -41,6 +41,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ import com.homeraria.hencodeuicourse.app.R;
  * 识别结果出框动画
  */
 public class LineLayout extends RelativeLayout {
-    private static String TYPE_CONTENT = "回到正题，这次带来的效果，是一个Android的3D立体旋转的效果。 当然灵感的来源，来自早些时间微博上看到的效果图。 非常酷有木有！";
+    private static String TYPE_CONTENT = "回到正题，这次带来的效果，是一个Android的3D立体旋转的效果";
 
     private LinePopView mRect;
     private TypeTextView mTitleView, mContentView;
@@ -65,7 +66,13 @@ public class LineLayout extends RelativeLayout {
         float height = rectF.bottom - rectF.top;
         float scale = LinePopView.UNDERLINE_LENGTH / width;
 
-        RelativeLayout.LayoutParams params = new LayoutParams((int) (1.5f * LinePopView.UNDERLINE_LENGTH), (int) (scale * height / 2f));
+        RelativeLayout.LayoutParams params = new LayoutParams((int) (1.5f * LinePopView.UNDERLINE_LENGTH), (int) (scale * height / 0.5f));
+
+//        float scale1 = (rectF.right - rectF.left) / 1.5f * LinePopView.UNDERLINE_LENGTH;
+//        view.setScaleX(scale1);
+//        view.setScaleY(scale1);
+//        view.setPivotX(0f);
+//        view.setPivotY(0f);
 
         parent.addView(view, params);
     }
@@ -138,12 +145,15 @@ public class LineLayout extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.v("sean2", "LineLayout.omMeasure()");
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-
         super.onLayout(changed, l, t, r, b);
+
+        if(!changed) return;
+        Log.v("sean2", "LineLayout.onLayout()");
 
 //        ViewGroup child = (ViewGroup) getChildAt(0);
 //
@@ -162,6 +172,12 @@ public class LineLayout extends RelativeLayout {
         params1.leftMargin = (int) ((r - l) / 3f);
         mTitleView.setLayoutParams(params);
         mContentView.setLayoutParams(params1);
+
+//        float scale1 = (rectF.right - rectF.left) / 1.5f * LinePopView.UNDERLINE_LENGTH;
+//        view.setScaleX(scale1);
+//        view.setScaleY(scale1);
+//        view.setPivotX(0f);
+//        view.setPivotY(0f);
 
 
 //        View recChild = getChildAt(0);

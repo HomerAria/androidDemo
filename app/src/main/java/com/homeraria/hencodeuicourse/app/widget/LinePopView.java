@@ -48,6 +48,7 @@ import android.graphics.Path;
 import android.graphics.PathEffect;
 import android.graphics.PathMeasure;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -126,6 +127,13 @@ public class LinePopView extends View {
         }
 
         isDoAnimation = true;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+//        Log.v("sean2", "LinePopView.omMeasure()");
     }
 
     @SuppressLint("DrawAllocation")

@@ -32,7 +32,7 @@
  *
  * ---------------------------- Revision History: ------------------------
  * <author>             <date>          <version>           <desc>
- * sean.zhou@oppo.com   2019/1/14      1.0                 create this module
+ * sean.zhou@oppo.com   2019/1/14       1.0                 create this module
  * -----------------------------------------------------------------------
  */
 package com.homeraria.hencodeuicourse.app.widget;
@@ -60,6 +60,7 @@ public class TypeTextView extends AppCompatTextView {
     private OnTypeViewListener mOnTypeViewListener = null;
     private static final int TYPE_TIME_DELAY = 50;
     private int mTypeTimeDelay = TYPE_TIME_DELAY; // 打字间隔
+    private int mExistLength = 0;      //保存TextView当前文字数量
 
     public TypeTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -91,8 +92,8 @@ public class TypeTextView extends AppCompatTextView {
         post(() -> {
             mShowTextString = textString;
             mTypeTimeDelay = typeTimeDelay;
-            setText("");
-            startTypeTimer();
+
+            startTypeTimer("");
             if (null != mOnTypeViewListener) {
                 mOnTypeViewListener.onTypeStart();
             }
@@ -108,7 +109,12 @@ public class TypeTextView extends AppCompatTextView {
         mContext = context;
     }
 
-    private void startTypeTimer() {
+    private void startTypeTimer(String content) {
+        if(mExistLength == mShowTextString.length()){
+            return;
+        }
+        mExistLength ++;
+        setText(content);
         stopTypeTimer();
         mTypeTimer = new Timer();
         mTypeTimer.schedule(new TypeTimerTask(), mTypeTimeDelay);
@@ -149,10 +155,18 @@ public class TypeTextView extends AppCompatTextView {
         @Override
         public void run() {
             post(() -> {
+                /*
+                原有设置方式
+                判断所有字段是否都已经加全，否则不持续执行setText()，因为这会导致父控件不断onLayout()
+                 */
                 if (getText().toString().length() < mShowTextString.length()) {
-                    setText(mShowTextString.substring(0, getText().toString().length() + 1));
-//                    startAudioPlayer();
-                    startTypeTimer();
+                    String temp = mShowTextString.substring(0, getText().toString().length() + 1);
+
+//                    setText(temp);
+//                      startAudioPlayer();
+                    startTypeTimer(temp);
+
+
                 } else {
                     stopTypeTimer();
                     if (null != mOnTypeViewListener) {
