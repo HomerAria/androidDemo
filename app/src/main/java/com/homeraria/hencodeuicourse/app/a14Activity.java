@@ -27,12 +27,7 @@ public class a14Activity extends FragmentActivity
     List<a14Activity.PageModel> mPageModelList = new ArrayList<>();
 
     {
-        mPageModelList.add(new a14Activity.PageModel("涟漪", R.layout.phenas_water_ripple));
-        mPageModelList.add(new a14Activity.PageModel("呼吸", R.layout.phenas_breath));
-        mPageModelList.add(new a14Activity.PageModel("粒子直线Surface", R.layout.phenas_particle_stright));
-        mPageModelList.add(new a14Activity.PageModel("粒子直线View", R.layout.phenas_particle_stright2));
-        mPageModelList.add(new a14Activity.PageModel("粒子反弹View", R.layout.phenas_particle_debounce));
-        mPageModelList.add(new a14Activity.PageModel("粒子容器控制", R.layout.phenas_particle_stright3));
+        mPageModelList.add(new a14Activity.PageModel("Twitter heart", R.layout.button_twitter));
     }
 
     @Override

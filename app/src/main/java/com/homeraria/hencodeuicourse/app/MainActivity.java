@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         titleList.add("3-3 贝塞尔曲线");
         titleList.add("4-1 Phenas动画效果");
         titleList.add("4-2 Material设计");
-        titleList.add("4-3 相册功能");
+        titleList.add("4-3 按钮点击");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 intent.setClass(MainActivity.this, a13Activity.class);
                 break;
             case 13:
-                intent.setClass(MainActivity.this, a13Activity.class);
+                intent.setClass(MainActivity.this, a14Activity.class);
                 break;
         }
 
