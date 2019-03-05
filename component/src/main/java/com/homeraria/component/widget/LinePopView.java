@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Guangdong oppo Mobile Communication(Shanghai)
+ * Copyright (c) 2019 Guangdong oppo Mobile Communication(Shanghai)
  * Corp.,Ltd. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,10 +32,10 @@
  *
  * ---------------------------- Revision History: ------------------------
  * <author>             <date>          <version>           <desc>
- * sean.zhou@oppo.com   2019/1/14      1.0                 create this module
+ * sean.zhou@oppo.com   2019/1/14       1.0                 create this module
  * -----------------------------------------------------------------------
  */
-package com.homeraria.hencodeuicourse.app.widget;
+package com.homeraria.component.widget;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -48,15 +48,16 @@ import android.graphics.Path;
 import android.graphics.PathEffect;
 import android.graphics.PathMeasure;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.homeraria.hencodeuicourse.app.R;
-import com.homeraria.hencodeuicourse.app.Utils;
+import com.homeraria.component.R;
+import com.homeraria.component.utils.Utils;
 
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
+
+import static com.homeraria.component.widget.LineLayout.LINE_RATIO;
 
 /**
  * 折线引出文字，且带有出现动画
@@ -65,7 +66,7 @@ import androidx.annotation.Nullable;
 public class LinePopView extends View {
     public static final float UNDERLINE_LENGTH = Utils.dpToPixel(200);
     private static final float LINE_WIDTH = 6f;
-    private static final float SHADOW_RADIUS = 2f;
+    private static final float SHADOW_RADIUS = 4f;
     private static final float PADDING = LINE_WIDTH + SHADOW_RADIUS;
 
     private float mWidth;
@@ -104,12 +105,15 @@ public class LinePopView extends View {
 
         mBorderPaint = new Paint();
         mBorderPaint.setStrokeWidth(LINE_WIDTH);
-        mBorderPaint.setColor(getResources().getColor(R.color.md_grey_500, null));
+        mBorderPaint.setColor(getResources().getColor(R.color.md_grey_600, null));
         mBorderPaint.setAntiAlias(true);
         mBorderPaint.setDither(true);
         mBorderPaint.setStyle(Paint.Style.STROKE);
-        mBorderPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, getResources().getColor(R.color.md_black_1000, null));
+//        mBorderPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, getResources().getColor(R.color.black, null));
         mBorderPaint.setStrokeCap(Paint.Cap.ROUND);
+
+        // Important for certain APIs
+        setLayerType(LAYER_TYPE_SOFTWARE, mBorderPaint);
     }
 
     public void setAnimationListener(Animator.AnimatorListener listener) {
@@ -119,7 +123,7 @@ public class LinePopView extends View {
     public void startAnim() {
         ObjectAnimator animator = ObjectAnimator.ofFloat(this, "process", 0f, 1f);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(1000);
+        animator.setDuration(500);
         animator.start();
 
         if (mAnimatorListener != null) {
@@ -132,8 +136,10 @@ public class LinePopView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-//        Log.v("sean2", "LinePopView.omMeasure()");
+        int width = getMeasuredWidth();
+//        if(whRatio > 0) {
+//            setMeasuredDimension(width,width );
+//        }
     }
 
     @SuppressLint("DrawAllocation")
@@ -144,7 +150,7 @@ public class LinePopView extends View {
 
             Path path = new Path();
             path.moveTo(0, mHeight);
-            path.lineTo(mWidth / 3, 0);
+            path.lineTo(mWidth / LINE_RATIO, 0);
             path.lineTo(mWidth, 0);
 
             canvas.drawPath(path, mBorderPaint);
@@ -155,7 +161,7 @@ public class LinePopView extends View {
 
             Path path = new Path();
             path.moveTo(PADDING, mHeight - PADDING);
-            path.lineTo(mWidth / 3, PADDING);
+            path.lineTo(mWidth / LINE_RATIO, PADDING);
             path.lineTo(mWidth - PADDING, PADDING);
 
             /*
@@ -171,4 +177,5 @@ public class LinePopView extends View {
             canvas.restore();
         }
     }
+
 }

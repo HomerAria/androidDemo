@@ -52,21 +52,21 @@ import com.homeraria.hencodeuicourse.app.R;
 /**
  * 识别结果出框动画
  */
-public class LineLayout extends RelativeLayout {
+public class LineLayoutApp extends RelativeLayout {
     private static String TYPE_CONTENT = "回到正题，这次带来的效果，是一个Android的3D立体旋转的效果";
 
-    private LinePopView mRect;
+    private LinePopViewApp mRect;
     private TypeTextView mTitleView, mContentView;
     private int left, right, top, bottom;
     private View parent;
 
     public static void addToParent(Context context, ViewGroup parent, RectF rectF){
-        LineLayout view = new LineLayout(context);
+        LineLayoutApp view = new LineLayoutApp(context);
         float width = rectF.right - rectF.left;
         float height = rectF.bottom - rectF.top;
-        float scale = LinePopView.UNDERLINE_LENGTH / width;
+        float scale = LinePopViewApp.UNDERLINE_LENGTH / width;
 
-        RelativeLayout.LayoutParams params = new LayoutParams((int) (1.5f * LinePopView.UNDERLINE_LENGTH), (int) (scale * height / 0.5f));
+        RelativeLayout.LayoutParams params = new LayoutParams((int) (1.5f * LinePopViewApp.UNDERLINE_LENGTH), (int) (scale * height * 1.5f));
 
 //        float scale1 = (rectF.right - rectF.left) / 1.5f * LinePopView.UNDERLINE_LENGTH;
 //        view.setScaleX(scale1);
@@ -77,20 +77,20 @@ public class LineLayout extends RelativeLayout {
         parent.addView(view, params);
     }
 
-    public LineLayout(Context context) {
+    public LineLayoutApp(Context context) {
         this(context, null);
     }
 
-    public LineLayout(Context context, AttributeSet attrs) {
+    public LineLayoutApp(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LineLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LineLayoutApp(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
 //        this.setClipChildren(false);
 //        this.setClipToPadding(false);
-        parent = LayoutInflater.from(context).inflate(R.layout.line_layout, this, true);
+        parent = LayoutInflater.from(context).inflate(R.layout.line_layout_app, this, true);
 
         mRect = parent.findViewById(R.id.rect);
         mTitleView = parent.findViewById(R.id.title);

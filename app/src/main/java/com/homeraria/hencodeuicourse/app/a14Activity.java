@@ -28,6 +28,8 @@ public class a14Activity extends FragmentActivity
 
     {
         mPageModelList.add(new a14Activity.PageModel("Twitter heart", R.layout.button_twitter));
+        mPageModelList.add(new a14Activity.PageModel("BaiduLens", R.layout.button_baidu));
+        mPageModelList.add(new a14Activity.PageModel("BaiduLensApply", R.layout.button_baidu_apply));
     }
 
     @Override

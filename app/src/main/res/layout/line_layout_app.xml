@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:gravity="bottom">
 
-    <com.homeraria.hencodeuicourse.app.widget.LinePopView
+    <com.homeraria.hencodeuicourse.app.widget.LinePopViewApp
         android:id="@+id/rect"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+    <com.homeraria.component.widget.ProgressBarCircularIndeterminate
+        android:id="@+id/target11"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical|left"
+        android:background="@android:color/white" />
+
+    <!--<com.homeraria.component.widget.LineLayout-->
+        <!--android:id="@+id/target2"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_above="@+id/target"-->
+        <!--android:layout_toRightOf="@+id/target"/>-->
+
+</merge>

@@ -46,8 +46,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.homeraria.hencodeuicourse.app.widget.LineLayout;
-import com.homeraria.hencodeuicourse.app.widget.LinePopView;
+import com.homeraria.hencodeuicourse.app.widget.LineLayoutApp;
+import com.homeraria.hencodeuicourse.app.widget.LinePopViewApp;
 import com.homeraria.hencodeuicourse.app.widget.RectLayout;
 import com.homeraria.hencodeuicourse.app.widget.RectPopView;
 import com.homeraria.hencodeuicourse.app.widget.TypeTextView;
@@ -138,7 +138,7 @@ public class TypeTextLayout extends RelativeLayout {
                     @Override
                     public void run() {
 
-                        LineLayout.addToParent(getContext(), TypeTextLayout.this, rectF);
+                        LineLayoutApp.addToParent(getContext(), TypeTextLayout.this, rectF);
                     }
                 }, 500);
 
@@ -197,14 +197,14 @@ public class TypeTextLayout extends RelativeLayout {
                 child.setScaleY(scale);
                 child.setPivotX(0f);
                 child.setPivotY(0f);
-            } else if (child instanceof LineLayout) {
+            } else if (child instanceof LineLayoutApp) {
                 RectF rect = mData.get(i);
 
                 float width = rect.right - rect.left;
                 float height = rect.bottom - rect.top;
-                float scale = LinePopView.UNDERLINE_LENGTH / width;
+                float scale = LinePopViewApp.UNDERLINE_LENGTH / width;
 
-                int right = (int) (rect.left + (int) (1.5f * LinePopView.UNDERLINE_LENGTH));
+                int right = (int) (rect.left + (int) (1.5f * LinePopViewApp.UNDERLINE_LENGTH));
                 int bottom = (int) (rect.top + (int) (scale * height / 0.5f));
 
                 float scale1 = (rect.right - rect.left) / child.getMeasuredWidth();

@@ -5,47 +5,47 @@
     android:background="#222">
 
     <!--<com.homeraria.hencodeuicourse.app.widget.RectPopView-->
-        <!--android:id="@+id/pop_rect"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:layout_margin="20dp"/>-->
+    <!--android:id="@+id/pop_rect"-->
+    <!--android:layout_width="200dp"-->
+    <!--android:layout_height="200dp"-->
+    <!--android:layout_margin="20dp"/>-->
 
     <!--<com.homeraria.hencodeuicourse.app.widget.TypeTextView-->
-        <!--android:id="@+id/target"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/target_des"-->
-        <!--android:fontFamily="sans-serif-thin"-->
-        <!--android:layout_marginStart="20dp"-->
-        <!--android:layout_marginEnd="20dp"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textColor="@color/colorPrimary"-->
-        <!--android:visibility="invisible"/>-->
+    <!--android:id="@+id/target"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_above="@+id/target_des"-->
+    <!--android:fontFamily="sans-serif-thin"-->
+    <!--android:layout_marginStart="20dp"-->
+    <!--android:layout_marginEnd="20dp"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:visibility="invisible"/>-->
 
     <!--<com.homeraria.hencodeuicourse.app.widget.TypeTextView-->
-        <!--android:id="@+id/target_des"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:fontFamily="sans-serif-thin"-->
-        <!--android:layout_marginStart="20dp"-->
-        <!--android:layout_marginEnd="20dp"-->
-        <!--android:textSize="14sp"-->
-        <!--android:textColor="@color/colorPrimaryDark"-->
-        <!--android:visibility="invisible"/>-->
+    <!--android:id="@+id/target_des"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:fontFamily="sans-serif-thin"-->
+    <!--android:layout_marginStart="20dp"-->
+    <!--android:layout_marginEnd="20dp"-->
+    <!--android:textSize="14sp"-->
+    <!--android:textColor="@color/colorPrimaryDark"-->
+    <!--android:visibility="invisible"/>-->
 
     <!--<com.homeraria.hencodeuicourse.app.widget.RectLayout-->
-        <!--android:id="@+id/rect_layout"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"/>-->
+    <!--android:id="@+id/rect_layout"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"/>-->
 
     <!--<Button-->
-        <!--android:id="@+id/start_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:text="start typing" />-->
+    <!--android:id="@+id/start_button"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:text="start typing" />-->
 
 </com.homeraria.hencodeuicourse.app.farmland.TypeTextLayout>

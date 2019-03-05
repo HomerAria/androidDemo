@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:clipChildren="false"
+    android:alpha="0.9"
+    android:background="#00ff00"
+    android:gravity="bottom">
+
+    <com.homeraria.component.widget.LinePopView
+        android:id="@+id/rect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/content"/>
+
+    <com.homeraria.component.widget.TypeTextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:singleLine="true"
+        android:shadowColor="#000"
+        android:shadowRadius="5"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:paddingStart="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/md_grey_600"
+        android:textSize="12sp" />
+
+    <com.homeraria.component.widget.TypeTextView
+        android:id="@+id/title"
+        android:singleLine="true"
+        android:shadowColor="#000"
+        android:shadowRadius="5"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:paddingStart="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/md_grey_100"
+        android:textSize="28sp"/>
+
+</RelativeLayout>

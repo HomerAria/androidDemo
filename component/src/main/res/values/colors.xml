@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="c_efefef">#efefef</color>
+
+    <color name="md_grey_100">#F5F5F5</color>
+    <color name="md_grey_500">#bbb</color>
+    <color name="md_grey_600">#ddd</color>
+
+    <color name="black">#000000</color>
+</resources>
