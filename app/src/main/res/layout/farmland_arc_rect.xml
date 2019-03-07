@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.homeraria.hencodeuicourse.app.farmland.ArcRectLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/grid_box"
+        android:orientation="horizontal">
+
+        <com.homeraria.component.widget.ArcSideRectViewBase
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="-2dp"
+        android:background="@drawable/grid_box"
+        android:orientation="horizontal">
+
+        <com.homeraria.component.widget.ArcSideRectView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"/>
+
+        <com.homeraria.component.widget.ArcSideRectView
+            android:layout_width="50dp"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/grid_box"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
+
+</com.homeraria.hencodeuicourse.app.farmland.ArcRectLayout>
