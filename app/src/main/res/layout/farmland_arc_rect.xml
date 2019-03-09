@@ -40,14 +40,19 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/grid_box"
-        android:orientation="horizontal">
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="-2dp"
+        android:background="@drawable/grid_box">
 
+        <com.homeraria.component.widget.PhantomBottomBar
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </com.homeraria.hencodeuicourse.app.farmland.ArcRectLayout>

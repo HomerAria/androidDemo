@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="10dp"
+        android:layout_height="1dp"
+        android:layout_margin="25dp"
+        android:background="@android:color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
+
+    <com.homeraria.component.widget.ArcSideRectView
+        android:id="@+id/function_c"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
+
+    <com.homeraria.component.widget.ArcSideRectView
+        android:id="@+id/function_b"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
+
+    <com.homeraria.component.widget.ArcSideRectView
+        android:id="@+id/function_a"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
+
+    <com.homeraria.component.widget.ArcSideRectView
+        android:id="@+id/base"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
+
+</merge>

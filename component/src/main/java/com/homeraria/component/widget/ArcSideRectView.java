@@ -42,11 +42,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
+import android.graphics.ComposeShader;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
+import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.util.AttributeSet;
@@ -64,7 +66,7 @@ public class ArcSideRectView extends View {
     private float mArcRatio = 0.25f;    //[0f, 1f] 表征
 
     private Paint mPaint, mBorderPaint;
-    private Shader mShader;
+    private Shader mShader, mBgShader, mComposeShader;
 
     //控件的中心点坐标，其他点坐标都基于此值
     private int mCenterX = 0, mCenterY = 0;
@@ -100,7 +102,7 @@ public class ArcSideRectView extends View {
         super(context, attrs, defStyleAttr);
 
         mPaint = new Paint();
-        mPaint.setColor(Color.WHITE);
+        mPaint.setARGB(255, 100, 100, 100);
         mPaint.setStrokeWidth(8);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaint.setAntiAlias(true);
@@ -122,6 +124,7 @@ public class ArcSideRectView extends View {
 
         mEndPointL = new PointF(ratioLength / 2 + mCenterX, ratioLength / 2 + mCenterY);
         mStartPointT = new PointF(ratioLength / 2 + mCenterX, ratioLength / 2 + mCenterY);
+
 
         mEndPointT = new PointF(length - ratioLength / 2 + mCenterX, ratioLength / 2 + mCenterY);
 
@@ -162,11 +165,11 @@ public class ArcSideRectView extends View {
         /*
         shader中的额bitmap需要根据view的尺寸做缩放,同时图片的中心与View的中心位置重合
          */
-        Bitmap fieldBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.bg1);
-        int bitmapWidth = fieldBitmap.getWidth();
-        int bitmapHeight = fieldBitmap.getHeight();
-        int bitmapLength = Math.min(bitmapHeight, bitmapWidth);
-        float scale = (float) length / (float) bitmapLength;
+        Bitmap fieldBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pill);
+        float bitmapWidth = fieldBitmap.getWidth();
+        float bitmapHeight = fieldBitmap.getHeight();
+        float bitmapLength = Math.min(bitmapHeight, bitmapWidth);
+        float scale = (float) length / bitmapLength;
 
         Matrix matrix = new Matrix();
         //缩放，图片的短边长等于icon的边长
@@ -175,8 +178,15 @@ public class ArcSideRectView extends View {
         matrix.postTranslate(-(bitmapWidth * scale - length) / 2,
                 -(bitmapHeight * scale - length) / 2);
 
-        mShader = new BitmapShader(fieldBitmap, Shader.TileMode.REPEAT, Shader.TileMode.MIRROR);
+        mShader = new BitmapShader(fieldBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mShader.setLocalMatrix(matrix);
+
+        mBgShader = new RadialGradient(0, 0, 10,
+                getResources().getColor(android.R.color.black, null),
+                getResources().getColor(android.R.color.black, null),
+                Shader.TileMode.REPEAT);
+
+        mComposeShader = new ComposeShader(mShader, mBgShader, PorterDuff.Mode.ADD);
 
         /*
         根据尺寸动态配置边框粗细
@@ -186,7 +196,6 @@ public class ArcSideRectView extends View {
         mPaint.setStrokeWidth(width);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -194,7 +203,7 @@ public class ArcSideRectView extends View {
         /*
         绘制其中的图片资源
          */
-        mPaint.setShader(mShader);
+        mPaint.setShader(mComposeShader);
 
         Path pathT = new Path();
         pathT.moveTo(mStartPointT.x, mStartPointT.y);
