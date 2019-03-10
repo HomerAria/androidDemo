@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
@@ -7,41 +8,53 @@
         android:id="@+id/line"
         android:layout_width="10dp"
         android:layout_height="1dp"
-        android:layout_margin="25dp"
+        android:layout_margin="30dp"
+        android:alpha="0.5"
         android:background="@android:color/white"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 
     <com.homeraria.component.widget.ArcSideRectView
-        android:id="@+id/function_c"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:id="@+id/function_a"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 
     <com.homeraria.component.widget.ArcSideRectView
         android:id="@+id/function_b"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 
     <com.homeraria.component.widget.ArcSideRectView
-        android:id="@+id/function_a"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:id="@+id/function_c"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 
     <com.homeraria.component.widget.ArcSideRectView
         android:id="@+id/base"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
+
+
+    <!--<com.airbnb.lottie.LottieAnimationView-->
+        <!--android:id="@+id/base"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--app:lottie_autoPlay="false"-->
+        <!--app:lottie_fileName="icon_switch.json"-->
+        <!--app:lottie_loop="true"  />-->
 
 </merge>

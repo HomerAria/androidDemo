@@ -55,6 +55,8 @@ dependencies {
 
     implementation "com.mikepenz:materialdrawer:6.1.2"     //侧边滑出栏
 
+    implementation 'com.airbnb.android:lottie:3.0.0-beta2'
+
     //with androidx
     implementation 'androidx.core:core:1.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'

@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         titleList.add("4-1 Phenas动画效果");
         titleList.add("4-2 Material设计");
         titleList.add("4-3 按钮点击");
+        titleList.add("4-4 Lottie动画");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
@@ -158,6 +159,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             case 13:
                 intent.setClass(MainActivity.this, a14Activity.class);
+                break;
+            case 14:
+                intent.setClass(MainActivity.this, a15Activity.class);
                 break;
         }
 

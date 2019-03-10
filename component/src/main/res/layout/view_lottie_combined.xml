@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.homeraria.component.widget.ArcSideRectView
+        android:id="@+id/img"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_centerInParent="true"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/border_a"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="phantom_a.json"
+        app:lottie_loop="false"  />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/border_b"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="phantom_b.json"
+        app:lottie_loop="false" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/border_c"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="phantom_c.json"
+        app:lottie_loop="true"  />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/border_d"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="phantom_d.json"
+        app:lottie_loop="false"  />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:text="精细结果"/>
+
+</merge>

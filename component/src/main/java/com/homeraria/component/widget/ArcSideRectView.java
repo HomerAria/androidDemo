@@ -63,7 +63,7 @@ import androidx.annotation.Nullable;
  */
 public class ArcSideRectView extends View {
     private Rect ICON_RECT = new Rect(0, 0, 500, 500);
-    private float mArcRatio = 0.25f;    //[0f, 1f] 表征
+    private float mArcRatio = 0.17f;    //[0f, 1f] 表征
 
     private Paint mPaint, mBorderPaint;
     private Shader mShader, mBgShader, mComposeShader;
@@ -220,7 +220,7 @@ public class ArcSideRectView extends View {
         /*
         绘制border
          */
-        canvas.drawPath(pathT, mBorderPaint);
+//        canvas.drawPath(pathT, mBorderPaint);
     }
 
 }
