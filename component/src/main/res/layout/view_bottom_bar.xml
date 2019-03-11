@@ -16,32 +16,32 @@
 
     <com.homeraria.component.widget.ArcSideRectView
         android:id="@+id/function_a"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 
     <com.homeraria.component.widget.ArcSideRectView
         android:id="@+id/function_b"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 
     <com.homeraria.component.widget.ArcSideRectView
         android:id="@+id/function_c"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 
     <com.homeraria.component.widget.ArcSideRectView
         android:id="@+id/base"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>

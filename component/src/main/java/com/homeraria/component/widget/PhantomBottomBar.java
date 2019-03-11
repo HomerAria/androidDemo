@@ -37,12 +37,16 @@
  */
 package com.homeraria.component.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Property;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -60,6 +64,8 @@ public class PhantomBottomBar extends RelativeLayout {
     private ArcSideRectView mFunctionButtonA, mFunctionButtonB, mFunctionButtonC;     //三个功能按钮
     private View mLine;
     private boolean isInit = true;
+    private int mCurrentSelected = 0, mLastSelected = 0;
+    private boolean isExpand = false;
 
     private float mScreenWidth;
     private int mMargin;
@@ -97,13 +103,6 @@ public class PhantomBottomBar extends RelativeLayout {
         mFunctionButtonC = findViewById(R.id.function_c);
         mLine = findViewById(R.id.line);
 
-        mFunctionButtonA.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         mBaseButton.setOnClickListener(v -> {
 //            if(isInit){
 //                isInit = false;
@@ -140,13 +139,249 @@ public class PhantomBottomBar extends RelativeLayout {
 //            animation3.setFillAfter(true);
 //            mLine.startAnimation(animation3);
 
+            if (!isExpand) {
+                ObjectAnimator animator = ObjectAnimator.ofFloat(PhantomBottomBar.this, PhantomBottomBar.PROCESS, 0, 1f);
+                animator.setDuration(600);
+                animator.setStartDelay(0);
+                animator.setInterpolator(new LinearOutSlowInInterpolator());
+                animator.start();
 
-            ObjectAnimator animator = ObjectAnimator.ofFloat(PhantomBottomBar.this, PhantomBottomBar.PROCESS, 0, 1f);
-            animator.setDuration(900);
-            animator.setStartDelay(50);
-            animator.setInterpolator(new LinearOutSlowInInterpolator());
-            animator.start();
+                mFunctionButtonA.setScaleX(1F);
+                mFunctionButtonA.setScaleY(1F);
+
+                mFunctionButtonB.setScaleX(0.5F);
+                mFunctionButtonB.setScaleY(0.5F);
+
+                mFunctionButtonC.setScaleX(0.5F);
+                mFunctionButtonC.setScaleY(0.5F);
+
+                mCurrentSelected = 0;
+                isExpand = true;
+            }else{
+                ObjectAnimator animator = ObjectAnimator.ofFloat(PhantomBottomBar.this, PhantomBottomBar.PROCESS, 1, 0f);
+                animator.setDuration(600);
+                animator.setStartDelay(0);
+                animator.setInterpolator(new LinearOutSlowInInterpolator());
+                animator.start();
+
+                isExpand = false;
+            }
         });
+
+        mFunctionButtonA.setOnClickListener(v -> {
+            if (mCurrentSelected == 1) {
+                b2a();
+
+                mCurrentSelected = 0;
+            } else if (mCurrentSelected == 2) {
+                c2a();
+
+                mCurrentSelected = 0;
+            }
+        });
+
+        mFunctionButtonB.setOnClickListener(v -> {
+            if (mCurrentSelected == 0) {
+                a2b();
+
+                mCurrentSelected = 1;
+            } else if (mCurrentSelected == 2) {
+                c2b();
+
+                mCurrentSelected = 1;
+            }
+        });
+
+        mFunctionButtonC.setOnClickListener(v -> {
+            if (mCurrentSelected == 1) {
+                b2c();
+
+                mCurrentSelected = 2;
+            } else if (mCurrentSelected == 0) {
+                a2c();
+
+
+                mCurrentSelected = 2;
+            }
+        });
+    }
+
+    private void a2c() {
+    /*
+    需要额外移动中间的按钮
+     */
+        ObjectAnimator trans = ObjectAnimator.ofFloat(mFunctionButtonB, "translationX", 0, -mFunctionButtonA.getWidth() * 0.5f);
+        trans.setDuration(200);
+        trans.setInterpolator(new OvershootInterpolator());
+        trans.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mFunctionButtonB.setPivotX(mFunctionButtonB.getWidth() / 2);
+                mFunctionButtonB.setPivotY(mFunctionButtonB.getHeight() / 2);
+
+                int top = mFunctionButtonA.getTop();
+                int left1 = (int) (mBaseButton.getLeft() - (mScreenWidth - 2 * mMargin - mFunctionButtonA.getWidth() / 2 - BAR_HEIGHT) * mProcess);
+                mFunctionButtonB.layout(left1, top, left1 + mFunctionButtonA.getWidth(), top + mFunctionButtonA.getHeight());
+                mFunctionButtonB.setTranslationX(0);
+            }
+        });
+        trans.start();
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleY", 0.5f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new OvershootInterpolator());
+        animatorSet.setDuration(200);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+
+        ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleY", 1f, 0.5f);
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        animatorSet1.setInterpolator(new OvershootInterpolator());
+        animatorSet1.setDuration(200);
+        animatorSet1.playTogether(scaleX1, scaleY1);
+        animatorSet1.start();
+    }
+
+    private void b2c() {
+        int top = mFunctionButtonA.getTop();
+        int right = (int) ((mFunctionButtonB.getRight() + mFunctionButtonB.getLeft()) / 2 + BAR_HEIGHT * 0.5);
+        mFunctionButtonB.layout(right - mFunctionButtonA.getWidth(), top, right, top + mFunctionButtonA.getHeight());
+
+        mFunctionButtonB.setPivotX(0);
+        mFunctionButtonB.setPivotY(mFunctionButtonB.getHeight() / 2);
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleY", 0.5f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new OvershootInterpolator());
+        animatorSet.setDuration(200);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+
+        ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleY", 1f, 0.5f);
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        animatorSet1.setInterpolator(new OvershootInterpolator());
+        animatorSet1.setDuration(200);
+        animatorSet1.playTogether(scaleX1, scaleY1);
+        animatorSet1.start();
+    }
+
+    private void c2b() {
+        int top = mFunctionButtonA.getTop();
+        int left1 = (int) (mFunctionButtonA.getLeft() + mFunctionButtonA.getWidth() / 2 + BAR_HEIGHT * 0.25);
+        mFunctionButtonB.layout(left1, top, left1 + mFunctionButtonA.getWidth(), top + mFunctionButtonA.getHeight());
+
+        mFunctionButtonB.setPivotX(0);
+        mFunctionButtonB.setPivotY(mFunctionButtonB.getHeight() / 2);
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleY", 0.5f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new OvershootInterpolator());
+        animatorSet.setDuration(200);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+
+        ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleY", 1f, 0.5f);
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        animatorSet1.setInterpolator(new OvershootInterpolator());
+        animatorSet1.setDuration(200);
+        animatorSet1.playTogether(scaleX1, scaleY1);
+        animatorSet1.start();
+    }
+
+    private void a2b() {
+        int top = mFunctionButtonA.getTop();
+        int left1 = (int) (mFunctionButtonA.getLeft() + mFunctionButtonA.getWidth() / 2 + BAR_HEIGHT * 0.25);
+//                    int right = (int) ((mFunctionButtonB.getRight() + mFunctionButtonB.getLeft())/2 + BAR_HEIGHT * 0.25);
+        mFunctionButtonB.layout(left1, top, left1 + mFunctionButtonA.getWidth(), top + mFunctionButtonA.getHeight());
+
+        mFunctionButtonB.setPivotX(mFunctionButtonB.getWidth());
+        mFunctionButtonB.setPivotY(mFunctionButtonB.getHeight() / 2);
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleY", 0.5f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new OvershootInterpolator());
+        animatorSet.setDuration(200);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+
+        ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleY", 1f, 0.5f);
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        animatorSet1.setInterpolator(new OvershootInterpolator());
+        animatorSet1.setDuration(200);
+        animatorSet1.playTogether(scaleX1, scaleY1);
+        animatorSet1.start();
+    }
+
+    private void c2a() {
+    /*
+    需要额外移动中间的按钮
+     */
+        ObjectAnimator trans = ObjectAnimator.ofFloat(mFunctionButtonB, "translationX", 0, mFunctionButtonA.getWidth() * 0.5f);
+        trans.setDuration(200);
+        trans.setInterpolator(new OvershootInterpolator());
+        trans.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mFunctionButtonB.setPivotX(mFunctionButtonB.getWidth() / 2);
+                mFunctionButtonB.setPivotY(mFunctionButtonB.getHeight() / 2);
+
+                int top = mFunctionButtonA.getTop();
+                int left1 = (int) (mBaseButton.getLeft() - (mScreenWidth - 2 * mMargin - mFunctionButtonA.getWidth() - BAR_HEIGHT) * mProcess);
+                mFunctionButtonB.layout(left1, top, left1 + mFunctionButtonA.getWidth(), top + mFunctionButtonA.getHeight());
+                mFunctionButtonB.setTranslationX(0);
+            }
+        });
+        trans.start();
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleY", 0.5f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new OvershootInterpolator());
+        animatorSet.setDuration(200);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+
+        ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(mFunctionButtonC, "scaleY", 1f, 0.5f);
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        animatorSet1.setInterpolator(new OvershootInterpolator());
+        animatorSet1.setDuration(200);
+        animatorSet1.playTogether(scaleX1, scaleY1);
+        animatorSet1.start();
+    }
+
+    private void b2a() {
+        int top = mFunctionButtonA.getTop();
+//                    int left1 = (int) (mFunctionButtonA.getLeft() + mFunctionButtonA.getWidth()/2 + BAR_HEIGHT * 0.5);
+        int right = (int) ((mFunctionButtonB.getRight() + mFunctionButtonB.getLeft()) / 2 + BAR_HEIGHT * 0.5);
+        mFunctionButtonB.layout(right - mFunctionButtonA.getWidth(), top, right, top + mFunctionButtonA.getHeight());
+
+        mFunctionButtonB.setPivotX(mFunctionButtonB.getWidth());
+        mFunctionButtonB.setPivotY(mFunctionButtonB.getHeight() / 2);
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleX", 0.5f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mFunctionButtonA, "scaleY", 0.5f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new OvershootInterpolator());
+        animatorSet.setDuration(200);
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+
+        ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(mFunctionButtonB, "scaleY", 1f, 0.5f);
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        animatorSet1.setInterpolator(new OvershootInterpolator());
+        animatorSet1.setDuration(200);
+        animatorSet1.playTogether(scaleX1, scaleY1);
+        animatorSet1.start();
     }
 
     @Override
@@ -166,31 +401,46 @@ public class PhantomBottomBar extends RelativeLayout {
 
         mMargin = (int) (mScreenWidth - mBaseButton.getRight());
 
+        mFunctionButtonA.setPivotX(0);
+        mFunctionButtonA.setPivotY(mFunctionButtonB.getHeight() / 2);
+
         int top = mFunctionButtonA.getTop();
-        int left = (int) (mBaseButton.getLeft() - (mScreenWidth - 2* mMargin - mFunctionButtonA.getWidth()) * mProcess);
+        int left = (int) (mBaseButton.getLeft() - (mScreenWidth - 2 * mMargin - mFunctionButtonA.getWidth()) * mProcess);
         mFunctionButtonA.layout(left, top, left + mFunctionButtonA.getWidth(), top + mFunctionButtonA.getHeight());
 
         mFunctionButtonB.setPivotX(mFunctionButtonB.getWidth() / 2);
         mFunctionButtonB.setPivotY(mFunctionButtonB.getHeight() / 2);
-        mFunctionButtonB.setScaleX(0.5F);
-        mFunctionButtonB.setScaleY(0.5F);
 
-        int left1 = (int) (mBaseButton.getLeft() - (mScreenWidth - 2* mMargin - mFunctionButtonA.getWidth() - 200) * mProcess);
+        int left1 = (int) (mBaseButton.getLeft() - (mScreenWidth - 2 * mMargin - mFunctionButtonA.getWidth() - BAR_HEIGHT) * mProcess);
         mFunctionButtonB.layout(left1, top, left1 + mFunctionButtonA.getWidth(), top + mFunctionButtonA.getHeight());
 
-        mFunctionButtonC.setPivotX(mFunctionButtonB.getWidth() / 2);
+        mFunctionButtonC.setPivotX(mFunctionButtonB.getWidth());
         mFunctionButtonC.setPivotY(mFunctionButtonB.getHeight() / 2);
-        mFunctionButtonC.setScaleX(0.5F);
-        mFunctionButtonC.setScaleY(0.5F);
 
-        int left2 = (int) (mBaseButton.getLeft() - (mScreenWidth - 2* mMargin - mFunctionButtonA.getWidth() - 400) * mProcess);
+        int left2 = (int) (mBaseButton.getLeft() - (mScreenWidth - 2 * mMargin - mFunctionButtonA.getWidth() - BAR_HEIGHT * 1.5) * mProcess);
         mFunctionButtonC.layout(left2, top, left2 + mFunctionButtonA.getWidth(), top + mFunctionButtonA.getHeight());
 
         /*
         动态配置连线的长度
          */
-        mLine.layout(mFunctionButtonA.getRight() - 10, mLine.getTop(), mBaseButton.getRight() - 10, mLine.getBottom());
+        mLine.layout(mFunctionButtonA.getLeft() + 10, mLine.getTop(), mBaseButton.getRight() - 10, mLine.getBottom());
+
+//        mFunctionButtonA.setAlpha(mProcess);
+//        mFunctionButtonB.setAlpha(mProcess);
+//        mFunctionButtonC.setAlpha(mProcess);
     }
+
+    private void popCurrent(int currentSelected) {
+        switch (currentSelected) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+
 
     public static final Property<PhantomBottomBar, Float> PROCESS = new Property<PhantomBottomBar, Float>(Float.class, "process") {
         @Override
