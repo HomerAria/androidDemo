@@ -26,7 +26,17 @@
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="phantom_round_c.json"
+        app:lottie_repeatMode="reverse"
+        app:lottie_fileName="phantom_round.json"
+        app:lottie_speed="3"
+        app:lottie_loop="true"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="phantom_icon.json"
         app:lottie_loop="true"/>
 
 </LinearLayout>

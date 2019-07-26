@@ -31,6 +31,7 @@ public class a14Activity extends FragmentActivity
         mPageModelList.add(new a14Activity.PageModel("BaiduLens", R.layout.button_baidu));
         mPageModelList.add(new a14Activity.PageModel("BaiduLensApply", R.layout.button_baidu_apply));
         mPageModelList.add(new a14Activity.PageModel("弧边矩形", R.layout.farmland_arc_rect));
+        mPageModelList.add(new a14Activity.PageModel("中心圆环", R.layout.farmland_circle));
     }
 
     @Override

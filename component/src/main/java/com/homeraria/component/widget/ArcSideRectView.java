@@ -111,7 +111,7 @@ public class ArcSideRectView extends View {
 
         mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBorderPaint.setDither(true);
-        mBorderPaint.setARGB(255, 255, 215, 0);
+        mBorderPaint.setARGB(255, 255, 255, 255);
         mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setStrokeWidth(8);
 
@@ -191,7 +191,7 @@ public class ArcSideRectView extends View {
         /*
         根据尺寸动态配置边框粗细
          */
-        int width = length / 100 > 2 ? length / 100 : 2;
+        int width = length / 100 > 4 ? length / 100 : 4;
         mBorderPaint.setStrokeWidth(width);
         mPaint.setStrokeWidth(width);
     }
@@ -203,7 +203,7 @@ public class ArcSideRectView extends View {
         /*
         绘制其中的图片资源
          */
-        mPaint.setShader(mComposeShader);
+
 
         Path pathT = new Path();
         pathT.moveTo(mStartPointT.x, mStartPointT.y);
@@ -215,12 +215,25 @@ public class ArcSideRectView extends View {
 
         pathT.cubicTo(mControlPointAL.x, mControlPointAL.y, mControlPointBL.x, mControlPointBL.y, mEndPointL.x, mEndPointL.y);
 
-        canvas.drawPath(pathT, mPaint);
+        if(!hasBorder) {
+            mPaint.setShader(mComposeShader);
+
+            canvas.drawPath(pathT, mPaint);
+        }
 
         /*
         绘制border
          */
-//        canvas.drawPath(pathT, mBorderPaint);
+        if(hasBorder) {
+            canvas.drawPath(pathT, mBorderPaint);
+        }
+    }
+
+    private boolean hasBorder = false;
+
+    public void setBorder(boolean border){
+        hasBorder = border;
+        postInvalidate();
     }
 
 }
