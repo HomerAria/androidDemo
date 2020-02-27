@@ -142,7 +142,7 @@ public class ProgressBarCircularIndeterminate extends CustomBaseView {
         Bitmap circleBitmap = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
         //以该bitmap为低创建一块画布
         Canvas canvas = new Canvas(circleBitmap);
-        //以（width/2, width/2）为圆心，width/2为半径画一个圆
+        //以（centerX/2, centerX/2）为圆心，centerX/2为半径画一个圆
         canvas.drawCircle(width / 2, width / 2, width / 2, paint);
 
         //设置画笔为取交集模式

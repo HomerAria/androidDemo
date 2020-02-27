@@ -138,7 +138,7 @@ public class LinePopView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = getMeasuredWidth();
 //        if(whRatio > 0) {
-//            setMeasuredDimension(width,width );
+//            setMeasuredDimension(centerX,centerX );
 //        }
     }
 
