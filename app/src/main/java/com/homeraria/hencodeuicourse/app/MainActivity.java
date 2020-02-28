@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         titleList.add("4-2 Material设计");
         titleList.add("4-3 按钮点击");
         titleList.add("4-4 Lottie动画");
+        titleList.add("4-4 跨进程通信");
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, titleList);
         mContentListView.setAdapter(adapter);
@@ -162,6 +163,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             case 14:
                 intent.setClass(MainActivity.this, a15Activity.class);
+                break;
+            case 15:   //IPC跨进程demo
+                intent.setClass(MainActivity.this, a16ipcActivity.class);
                 break;
         }
 

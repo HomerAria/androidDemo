@@ -19,6 +19,7 @@
     <string name="title_activity_a13b">a13bActivity</string>
     <string name="title_activity_a14">a14Activity</string>
     <string name="title_activity_a15">a15Activity</string>
+    <string name="title_activity_a16">IPCActivity</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_favorite">Favorites</string>

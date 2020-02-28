@@ -75,6 +75,14 @@
         <activity
             android:name=".a15Activity"
             android:label="@string/title_activity_a15" />
+
+        <activity
+            android:name=".a16ipcActivity"
+            android:label="@string/title_activity_a16" />
+
+        <service
+            android:name=".ipc.MessengerService"
+            android:process=":remote" />
     </application>
 
 </manifest>
